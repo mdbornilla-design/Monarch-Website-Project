@@ -1,0 +1,1458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Monarch's Domain</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Exo+2:wght@300;400;500;600;700;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+:root{
+  --purple:#A855F7;--purple-light:#C084FC;--purple-dark:#7C3AED;
+  --purple-glow:rgba(168,85,247,0.5);--purple-dim:rgba(168,85,247,0.12);
+  --bg:#060A12;--bg2:#0D1221;--bg3:#111827;--bg4:#0a0f1a;
+  --card:rgba(255,255,255,0.04);--border:rgba(255,255,255,0.07);
+  --border-purple:rgba(168,85,247,0.25);--text:#e2e8f0;--muted:#6B7280;
+  --gold:#FACC15;--green:#22C55E;--red:#EF4444;--cyan:#22D3EE;
+  --nav-h:64px;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Exo 2',sans-serif;overflow-x:hidden;min-height:100vh;}
+body::-webkit-scrollbar{width:6px;}
+body::-webkit-scrollbar-track{background:var(--bg2);}
+body::-webkit-scrollbar-thumb{background:var(--purple);border-radius:10px;}
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9990;
+  background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,0.025) 3px,rgba(0,0,0,0.025) 4px);}
+.bg-orb{position:fixed;border-radius:50%;pointer-events:none;z-index:-1;}
+.orb1{width:700px;height:700px;background:rgba(168,85,247,0.09);filter:blur(160px);top:-200px;right:-150px;}
+.orb2{width:500px;height:500px;background:rgba(34,211,238,0.04);filter:blur(130px);bottom:-100px;left:-120px;}
+.orb3{width:350px;height:350px;background:rgba(124,58,237,0.06);filter:blur(110px);top:50%;left:35%;}
+
+/* ══ NAV ══ */
+#navbar{
+  position:fixed;top:0;left:0;right:0;z-index:9000;
+  height:var(--nav-h);
+  background:rgba(6,10,18,0.92);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border-purple);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 28px;gap:16px;
+}
+.nav-logo{
+  font-family:'Rajdhani',sans-serif;font-size:1.35rem;font-weight:700;
+  color:white;text-decoration:none;letter-spacing:3px;white-space:nowrap;
+  text-shadow:0 0 16px var(--purple-glow);flex-shrink:0;
+}
+.nav-logo span{color:var(--purple-light);}
+.nav-center{
+  display:flex;align-items:center;gap:2px;
+  background:rgba(255,255,255,0.03);
+  border:1px solid var(--border);border-radius:40px;
+  padding:4px 6px;overflow:hidden;flex:1;max-width:680px;
+  flex-wrap:nowrap;
+}
+.nav-link{
+  padding:7px 12px;border-radius:30px;border:none;background:transparent;
+  color:var(--muted);font-family:'Exo 2',sans-serif;font-size:0.8rem;font-weight:600;
+  cursor:pointer;transition:all 0.25s;white-space:nowrap;letter-spacing:0.5px;
+  text-transform:uppercase;
+}
+.nav-link:hover{color:white;background:rgba(168,85,247,0.12);}
+.nav-link.active{color:white;background:linear-gradient(135deg,rgba(147,51,234,0.5),rgba(168,85,247,0.3));
+  box-shadow:0 0 12px rgba(168,85,247,0.2);}
+.nav-right{display:flex;align-items:center;gap:8px;flex-shrink:0;}
+.cart-btn{
+  position:relative;background:rgba(168,85,247,0.12);border:1px solid var(--border-purple);
+  color:white;width:38px;height:38px;border-radius:50%;cursor:pointer;
+  font-size:0.95rem;transition:0.25s;display:flex;align-items:center;justify-content:center;
+}
+.cart-btn:hover{background:var(--purple);box-shadow:0 0 14px var(--purple-glow);}
+.cart-count{
+  position:absolute;top:-4px;right:-4px;width:17px;height:17px;
+  background:var(--red);border-radius:50%;font-size:0.6rem;font-weight:700;
+  display:none;align-items:center;justify-content:center;font-family:'Share Tech Mono',monospace;
+}
+.btn-login{
+  padding:7px 16px;border:1px solid var(--border-purple);border-radius:30px;
+  color:white;background:transparent;font-family:'Exo 2',sans-serif;
+  font-size:0.8rem;font-weight:600;cursor:pointer;transition:0.25s;letter-spacing:0.5px;
+}
+.btn-login:hover{background:rgba(168,85,247,0.2);border-color:var(--purple);}
+.btn-signup{
+  padding:7px 16px;border:none;border-radius:30px;
+  color:white;background:linear-gradient(135deg,#9333EA,#C084FC);
+  font-family:'Exo 2',sans-serif;font-size:0.8rem;font-weight:700;
+  cursor:pointer;transition:0.25s;letter-spacing:0.5px;
+}
+.btn-signup:hover{box-shadow:0 0 18px var(--purple-glow);transform:translateY(-1px);}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:6px;border:none;background:transparent;}
+.hamburger span{display:block;width:22px;height:2px;background:white;border-radius:2px;transition:0.3s;}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+.mobile-menu{
+  display:none;position:fixed;top:var(--nav-h);left:0;right:0;z-index:8999;
+  background:rgba(6,10,18,0.98);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border-purple);
+  padding:16px;flex-direction:column;gap:4px;
+}
+.mobile-menu.open{display:flex;}
+.mobile-link{
+  padding:12px 16px;border-radius:12px;border:none;background:transparent;
+  color:var(--muted);font-family:'Exo 2',sans-serif;font-size:0.9rem;font-weight:600;
+  cursor:pointer;transition:0.2s;text-align:left;letter-spacing:0.5px;text-transform:uppercase;
+}
+.mobile-link:hover,.mobile-link.active{color:white;background:rgba(168,85,247,0.15);}
+.mobile-actions{display:flex;gap:8px;padding:12px 0 4px;border-top:1px solid var(--border);margin-top:4px;}
+
+/* ══ PAGES ══ */
+.page{display:none;min-height:calc(100vh - var(--nav-h));padding-top:var(--nav-h);}
+.page.active{display:block;}
+
+/* ══ HERO ══ */
+.hero{
+  min-height:calc(100vh - var(--nav-h));display:flex;
+  align-items:center;padding:60px 6% 40px;gap:60px;position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 70% 60% at 60% 50%,rgba(168,85,247,0.08),transparent);
+  pointer-events:none;
+}
+.hero-text{flex:1;max-width:560px;}
+.hero-tag{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:6px 16px;border:1px solid var(--border-purple);border-radius:30px;
+  color:var(--purple-light);font-size:0.72rem;letter-spacing:3px;
+  font-family:'Share Tech Mono',monospace;text-transform:uppercase;margin-bottom:22px;
+  background:rgba(168,85,247,0.06);
+}
+.hero-tag::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--purple-light);animation:blink 1.4s ease infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0.2;}}
+.hero h1{
+  font-family:'Rajdhani',sans-serif;font-size:clamp(3.2rem,7vw,6rem);
+  font-weight:700;line-height:0.9;color:white;
+  text-shadow:0 0 40px rgba(168,85,247,0.3);margin-bottom:22px;
+  letter-spacing:2px;
+}
+.hero h1 .accent{color:var(--purple-light);}
+.hero p{color:#9CA3AF;line-height:1.8;font-size:1rem;margin-bottom:32px;font-weight:400;}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;}
+.btn-primary{
+  padding:12px 26px;border-radius:40px;border:none;
+  background:linear-gradient(135deg,#9333EA,#C084FC);color:white;
+  font-family:'Exo 2',sans-serif;font-size:0.9rem;font-weight:700;
+  cursor:pointer;transition:0.3s;letter-spacing:0.5px;display:inline-flex;align-items:center;gap:8px;
+  text-decoration:none;
+}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(168,85,247,0.5);}
+.btn-outline{
+  padding:12px 26px;border-radius:40px;border:1px solid rgba(255,255,255,0.18);
+  color:white;background:rgba(255,255,255,0.05);
+  font-family:'Exo 2',sans-serif;font-size:0.9rem;font-weight:600;
+  cursor:pointer;transition:0.3s;letter-spacing:0.5px;display:inline-flex;align-items:center;gap:8px;
+  text-decoration:none;
+}
+.btn-outline:hover{border-color:var(--purple);box-shadow:0 0 20px rgba(168,85,247,0.2);}
+.hero-stats{
+  display:flex;gap:32px;margin-top:40px;padding-top:32px;
+  border-top:1px solid var(--border);flex-wrap:wrap;
+}
+.hero-stat-n{font-family:'Rajdhani',sans-serif;font-size:1.8rem;font-weight:700;color:var(--purple-light);}
+.hero-stat-l{font-size:0.72rem;color:var(--muted);letter-spacing:1.5px;margin-top:2px;text-transform:uppercase;}
+.hero-visual{flex:1;display:flex;justify-content:center;align-items:center;position:relative;}
+.hero-img-wrap{position:relative;}
+.hero-img-wrap img{
+  width:100%;max-width:520px;border-radius:22px;
+  border:1px solid var(--border-purple);
+  box-shadow:0 0 60px rgba(168,85,247,0.25),0 0 120px rgba(168,85,247,0.1);
+  animation:float 5s ease-in-out infinite;display:block;
+}
+@keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-14px);}}
+.hero-img-glow{
+  position:absolute;inset:-20px;border-radius:30px;
+  background:radial-gradient(ellipse at center,rgba(168,85,247,0.15),transparent 70%);
+  animation:float 5s ease-in-out infinite;z-index:-1;
+}
+.scroll-indicator{
+  position:absolute;bottom:30px;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:6px;color:var(--muted);
+  font-size:0.72rem;letter-spacing:2px;text-transform:uppercase;
+  font-family:'Share Tech Mono',monospace;animation:scrollBounce 2s ease infinite;
+}
+@keyframes scrollBounce{0%,100%{transform:translateX(-50%) translateY(0);}50%{transform:translateX(-50%) translateY(6px);}}
+
+/* ══ SECTION BASE ══ */
+.section{padding:80px 6%;}
+.section-alt{background:var(--bg2);}
+.sec-label{
+  display:inline-block;padding:4px 14px;border:1px solid var(--border-purple);
+  border-radius:30px;color:var(--purple-light);font-size:0.68rem;letter-spacing:3px;
+  font-family:'Share Tech Mono',monospace;text-transform:uppercase;margin-bottom:10px;
+  background:rgba(168,85,247,0.06);
+}
+.sec-title{
+  font-family:'Rajdhani',sans-serif;font-size:clamp(1.8rem,3.5vw,2.8rem);
+  font-weight:700;color:white;margin-bottom:50px;letter-spacing:1px;
+  position:relative;display:inline-block;
+}
+.sec-title::after{
+  content:'';display:block;height:3px;width:60px;
+  background:linear-gradient(to right,var(--purple),var(--purple-light));
+  border-radius:2px;margin-top:10px;
+}
+.sec-header{text-align:center;margin-bottom:50px;}
+.sec-header .sec-title::after{margin:10px auto 0;}
+
+/* ══ CARDS BASE ══ */
+.card{
+  background:var(--card);border:1px solid var(--border);border-radius:18px;
+  transition:all 0.35s;overflow:hidden;
+}
+.card:hover{border-color:var(--border-purple);box-shadow:0 0 28px rgba(168,85,247,0.18);}
+
+/* ══ NEWS PAGE ══ */
+.news-hero{
+  background:linear-gradient(135deg,rgba(147,51,234,0.15),rgba(168,85,247,0.05));
+  border-bottom:1px solid var(--border-purple);
+  padding:50px 6% 40px;text-align:center;
+}
+.news-hero h1{font-family:'Rajdhani',sans-serif;font-size:clamp(2rem,4vw,3.5rem);font-weight:700;letter-spacing:2px;margin-bottom:10px;}
+.news-hero p{color:var(--muted);max-width:500px;margin:0 auto;}
+.news-filters{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:30px 0;}
+.nf-btn{
+  padding:7px 18px;border-radius:30px;border:1px solid var(--border);
+  background:transparent;color:var(--muted);font-family:'Exo 2',sans-serif;
+  font-size:0.8rem;font-weight:600;cursor:pointer;transition:0.25s;letter-spacing:0.5px;
+}
+.nf-btn.active,.nf-btn:hover{border-color:var(--purple);color:white;background:rgba(168,85,247,0.12);}
+.news-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:24px;}
+.news-card{cursor:pointer;}
+.news-card-img{width:100%;height:200px;object-fit:cover;display:block;transition:transform 0.4s;}
+.news-card:hover .news-card-img{transform:scale(1.04);}
+.news-card-img-wrap{overflow:hidden;position:relative;}
+.news-badge-cat{
+  position:absolute;bottom:12px;left:12px;
+  padding:4px 12px;border-radius:20px;font-size:0.68rem;font-weight:700;
+  background:var(--purple);color:white;font-family:'Share Tech Mono',monospace;letter-spacing:1px;
+}
+.news-card-body{padding:20px;}
+.news-date{font-family:'Share Tech Mono',monospace;font-size:0.7rem;color:var(--muted);margin-bottom:8px;}
+.news-card-body h3{font-size:1rem;font-weight:700;margin-bottom:8px;line-height:1.4;}
+.news-card-body p{color:#9CA3AF;font-size:0.83rem;line-height:1.6;}
+.news-featured{grid-column:1/-1;}
+.news-featured .news-card-img{height:320px;}
+.news-featured .news-card-body h3{font-size:1.4rem;}
+
+/* ══ GAMES PAGE ══ */
+.games-hero{
+  background:linear-gradient(to right,rgba(147,51,234,0.15),rgba(168,85,247,0.05));
+  border-bottom:1px solid var(--border-purple);
+  padding:50px 6% 40px;
+}
+.games-hero h1{font-family:'Rajdhani',sans-serif;font-size:clamp(2rem,4vw,3.5rem);font-weight:700;letter-spacing:2px;}
+.games-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:36px;}
+.g-tab{
+  padding:8px 20px;border-radius:30px;border:1px solid var(--border);
+  background:transparent;color:var(--muted);font-family:'Exo 2',sans-serif;
+  font-size:0.82rem;font-weight:600;cursor:pointer;transition:0.25s;
+}
+.g-tab.active,.g-tab:hover{border-color:var(--purple);color:white;background:rgba(168,85,247,0.12);}
+.game-featured{
+  display:grid;grid-template-columns:1fr 1.2fr;gap:0;border-radius:22px;overflow:hidden;
+  border:1px solid var(--border-purple);margin-bottom:36px;
+  background:var(--bg3);
+}
+.game-feat-img{width:100%;height:100%;object-fit:cover;min-height:340px;display:block;}
+.game-feat-body{padding:40px 36px;display:flex;flex-direction:column;justify-content:center;}
+.game-feat-body h2{font-family:'Rajdhani',sans-serif;font-size:2.4rem;font-weight:700;margin-bottom:6px;}
+.game-genre{
+  display:inline-block;padding:5px 14px;border-radius:20px;
+  background:rgba(168,85,247,0.18);color:var(--purple-light);
+  font-size:0.78rem;font-weight:600;margin-bottom:14px;
+}
+.game-rating{color:var(--gold);font-size:1.1rem;margin-bottom:14px;}
+.game-feat-body p{color:#9CA3AF;line-height:1.8;font-size:0.9rem;margin-bottom:22px;}
+.game-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;}
+.game-tag-pill{
+  padding:4px 12px;border-radius:20px;border:1px solid var(--border);
+  font-size:0.72rem;color:var(--muted);font-family:'Share Tech Mono',monospace;
+}
+.games-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px;}
+.game-card{cursor:pointer;position:relative;}
+.game-card-img{width:100%;height:160px;object-fit:cover;display:block;}
+.game-card-img-wrap{overflow:hidden;border-radius:14px 14px 0 0;}
+.game-card:hover .game-card-img{transform:scale(1.05);}
+.game-card-img-wrap{overflow:hidden;}
+.game-card-body{padding:16px;}
+.game-card-body h4{font-weight:700;font-size:0.95rem;margin-bottom:4px;}
+.game-card-body span{color:var(--muted);font-size:0.8rem;}
+.game-card-rating{color:var(--gold);font-size:0.78rem;margin-top:4px;}
+
+/* ══ TOURNAMENTS PAGE ══ */
+.t-hero{
+  padding:50px 6% 40px;
+  background:linear-gradient(135deg,rgba(147,51,234,0.15),rgba(168,85,247,0.03));
+  border-bottom:1px solid var(--border-purple);
+}
+.t-hero h1{font-family:'Rajdhani',sans-serif;font-size:clamp(2rem,4vw,3.5rem);font-weight:700;letter-spacing:2px;}
+.filter-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:32px;}
+.f-btn{
+  padding:7px 18px;border-radius:30px;border:1px solid var(--border);
+  background:transparent;color:var(--muted);font-family:'Exo 2',sans-serif;
+  font-size:0.8rem;font-weight:600;cursor:pointer;transition:0.25s;
+}
+.f-btn.active,.f-btn:hover{border-color:var(--purple);color:white;background:rgba(168,85,247,0.12);}
+.t-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:22px;}
+.t-card{border-radius:18px;overflow:hidden;}
+.t-banner{height:140px;display:flex;align-items:center;justify-content:center;position:relative;}
+.t-b1{background:linear-gradient(135deg,#1a0533,#4c1d95);}
+.t-b2{background:linear-gradient(135deg,#0c1a3a,#1e3a6e);}
+.t-b3{background:linear-gradient(135deg,#1a1205,#6e4e0d);}
+.t-b4{background:linear-gradient(135deg,#050d1a,#0d2a6e);}
+.t-b5{background:linear-gradient(135deg,#1a050a,#6e0d1c);}
+.t-b6{background:linear-gradient(135deg,#0a1a0a,#0d6e2a);}
+.t-emoji{font-size:3.5rem;}
+.live-pill{
+  position:absolute;top:12px;left:12px;
+  display:flex;align-items:center;gap:5px;
+  background:rgba(0,0,0,0.65);padding:4px 10px;border-radius:20px;
+  font-size:0.68rem;color:var(--red);font-family:'Share Tech Mono',monospace;letter-spacing:1px;
+}
+.live-dot{width:7px;height:7px;border-radius:50%;background:var(--red);animation:blink 1s ease infinite;}
+.upcoming-pill{
+  position:absolute;top:12px;left:12px;
+  display:flex;align-items:center;gap:5px;
+  background:rgba(0,0,0,0.65);padding:4px 10px;border-radius:20px;
+  font-size:0.68rem;color:var(--gold);font-family:'Share Tech Mono',monospace;letter-spacing:1px;
+}
+.t-viewers{position:absolute;top:12px;right:12px;background:rgba(0,0,0,0.65);padding:4px 10px;border-radius:20px;font-size:0.68rem;color:var(--muted);}
+.t-body{padding:18px;}
+.t-game-tag{font-size:0.68rem;color:var(--purple-light);letter-spacing:2px;font-family:'Share Tech Mono',monospace;margin-bottom:5px;text-transform:uppercase;}
+.t-name{font-family:'Rajdhani',sans-serif;font-size:1.1rem;font-weight:700;margin-bottom:8px;}
+.t-date{color:var(--muted);font-size:0.8rem;margin-bottom:12px;}
+.t-footer{display:flex;justify-content:space-between;align-items:center;padding-top:12px;border-top:1px solid var(--border);}
+.t-prize{font-family:'Rajdhani',sans-serif;font-size:1.15rem;color:var(--gold);font-weight:700;}
+.t-spots{font-size:0.75rem;color:var(--muted);}
+.t-bar{height:3px;background:var(--border);border-radius:2px;overflow:hidden;margin-top:10px;}
+.t-bar-fill{height:100%;background:linear-gradient(to right,var(--purple),var(--purple-light));border-radius:2px;}
+
+/* ══ LEADERBOARD PAGE ══ */
+.lb-hero{padding:50px 6% 40px;background:linear-gradient(135deg,rgba(147,51,234,0.15),transparent);border-bottom:1px solid var(--border-purple);}
+.lb-hero h1{font-family:'Rajdhani',sans-serif;font-size:clamp(2rem,4vw,3.5rem);font-weight:700;letter-spacing:2px;}
+.lb-wrap{background:var(--bg3);border:1px solid var(--border-purple);border-radius:20px;overflow:hidden;}
+.lb-tabs{display:flex;border-bottom:1px solid var(--border);}
+.lb-tab{flex:1;padding:14px;text-align:center;cursor:pointer;font-size:0.82rem;font-weight:600;color:var(--muted);transition:0.25s;background:transparent;border:none;font-family:'Exo 2',sans-serif;letter-spacing:0.5px;}
+.lb-tab.active{color:var(--purple-light);border-bottom:2px solid var(--purple);}
+.lb-tab:hover{color:white;}
+.lb-head{display:grid;grid-template-columns:60px 1fr 110px 80px 110px;padding:12px 20px;background:rgba(168,85,247,0.05);font-size:0.68rem;color:var(--muted);letter-spacing:2px;text-transform:uppercase;font-family:'Share Tech Mono',monospace;}
+.lb-row{display:grid;grid-template-columns:60px 1fr 110px 80px 110px;padding:14px 20px;border-bottom:1px solid rgba(255,255,255,0.03);align-items:center;transition:0.2s;cursor:default;}
+.lb-row:hover{background:rgba(168,85,247,0.04);}
+.lb-row:last-child{border:none;}
+.lb-rank{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:1.05rem;}
+.r1{color:var(--gold);}
+.r2{color:#c0c0c0;}
+.r3{color:#cd7f32;}
+.lb-player{display:flex;align-items:center;gap:10px;}
+.lb-av{width:38px;height:38px;border-radius:50%;border:2px solid var(--border-purple);display:flex;align-items:center;justify-content:center;font-size:1.2rem;background:var(--bg2);}
+.lb-name{font-weight:700;font-size:0.9rem;}
+.lb-handle{font-size:0.68rem;color:var(--muted);font-family:'Share Tech Mono',monospace;}
+.lb-kd{font-family:'Share Tech Mono',monospace;font-size:0.85rem;color:var(--cyan);}
+.lb-wins{font-family:'Rajdhani',sans-serif;font-size:0.9rem;font-weight:700;}
+.lb-pts{font-family:'Rajdhani',sans-serif;font-size:0.9rem;color:var(--purple-light);font-weight:700;}
+.lb-panel{display:none;}
+.lb-panel.active{display:block;}
+
+/* ══ STREAMERS PAGE ══ */
+.str-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:20px;}
+.str-card{cursor:pointer;}
+.str-thumb{height:150px;display:flex;align-items:center;justify-content:center;font-size:3.5rem;position:relative;}
+.st1{background:linear-gradient(135deg,#1a0533,#4c1d95);}
+.st2{background:linear-gradient(135deg,#0c1a3a,#0d4a7a);}
+.st3{background:linear-gradient(135deg,#1a0a0a,#7a0d0d);}
+.st4{background:linear-gradient(135deg,#0a1a0a,#0d7a1c);}
+.st5{background:linear-gradient(135deg,#1a1505,#7a5e0d);}
+.st6{background:linear-gradient(135deg,#0a1a1a,#0d6a7a);}
+.str-live{position:absolute;top:10px;left:10px;background:var(--red);padding:3px 10px;border-radius:20px;font-size:0.65rem;font-weight:700;letter-spacing:1px;display:flex;align-items:center;gap:5px;}
+.str-views{position:absolute;bottom:10px;right:10px;background:rgba(0,0,0,0.75);padding:3px 8px;border-radius:10px;font-size:0.68rem;}
+.str-body{padding:14px;}
+.str-header{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+.str-av{width:38px;height:38px;border-radius:50%;border:2px solid var(--border-purple);display:flex;align-items:center;justify-content:center;font-size:1.4rem;background:var(--bg2);}
+.str-name{font-weight:700;font-size:0.9rem;}
+.str-handle{font-size:0.68rem;color:var(--purple-light);font-family:'Share Tech Mono',monospace;}
+.str-game{color:var(--muted);font-size:0.78rem;margin-bottom:10px;}
+.follow-btn{width:100%;padding:8px;border-radius:10px;border:1px solid var(--border-purple);background:rgba(168,85,247,0.08);color:var(--purple-light);font-family:'Exo 2',sans-serif;font-size:0.78rem;font-weight:700;cursor:pointer;transition:0.25s;letter-spacing:0.5px;}
+.follow-btn:hover{background:var(--purple);color:white;}
+.follow-btn.following{background:var(--purple);color:white;}
+
+/* ══ MERCH PAGE ══ */
+.merch-hero{padding:50px 6% 40px;background:linear-gradient(135deg,rgba(147,51,234,0.15),transparent);border-bottom:1px solid var(--border-purple);}
+.merch-hero h1{font-family:'Rajdhani',sans-serif;font-size:clamp(2rem,4vw,3.5rem);font-weight:700;letter-spacing:2px;}
+.merch-cats{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:32px;}
+.mc-btn{padding:7px 18px;border-radius:30px;border:1px solid var(--border);background:transparent;color:var(--muted);font-family:'Exo 2',sans-serif;font-size:0.8rem;font-weight:600;cursor:pointer;transition:0.25s;}
+.mc-btn.active,.mc-btn:hover{border-color:var(--purple);color:white;background:rgba(168,85,247,0.12);}
+.merch-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:22px;}
+.m-card{position:relative;cursor:pointer;}
+.m-badge{position:absolute;top:10px;left:10px;z-index:2;padding:4px 12px;border-radius:20px;font-size:0.65rem;font-weight:700;}
+.badge-hot{background:var(--red);color:white;}
+.badge-new{background:var(--purple);color:white;}
+.badge-sale{background:var(--gold);color:#000;}
+.m-img{height:200px;display:flex;align-items:center;justify-content:center;font-size:4.5rem;position:relative;}
+.mb1{background:linear-gradient(135deg,#1a0533,#2d0f52);}
+.mb2{background:linear-gradient(135deg,#0a1a3a,#0d2a5e);}
+.mb3{background:linear-gradient(135deg,#1a1005,#3a2a0a);}
+.mb4{background:linear-gradient(135deg,#1a0a1a,#3a0d3a);}
+.mb5{background:linear-gradient(135deg,#0a1a1a,#0d3a3a);}
+.mb6{background:linear-gradient(135deg,#0a1a0a,#0d3a0d);}
+.mb7{background:linear-gradient(135deg,#1a0a05,#5a2a0d);}
+.mb8{background:linear-gradient(135deg,#050a1a,#0d1a5a);}
+.m-body{padding:16px;}
+.m-cat{font-size:0.65rem;color:var(--purple-light);letter-spacing:2px;text-transform:uppercase;font-family:'Share Tech Mono',monospace;margin-bottom:4px;}
+.m-name{font-weight:700;font-size:0.95rem;margin-bottom:5px;}
+.m-desc{color:var(--muted);font-size:0.76rem;line-height:1.5;margin-bottom:12px;}
+.m-footer{display:flex;justify-content:space-between;align-items:center;}
+.m-price{font-family:'Rajdhani',sans-serif;font-size:1.05rem;font-weight:700;color:var(--purple-light);}
+.m-old{text-decoration:line-through;color:var(--muted);font-size:0.8rem;margin-left:6px;}
+.m-colors{display:flex;gap:5px;margin-bottom:10px;}
+.c-dot{width:16px;height:16px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:0.2s;}
+.c-dot:hover,.c-dot.on{border-color:white;}
+.atc-btn{padding:7px 14px;border-radius:10px;border:1px solid var(--border-purple);background:rgba(168,85,247,0.08);color:var(--purple-light);font-size:0.75rem;font-weight:700;cursor:pointer;transition:0.25s;font-family:'Exo 2',sans-serif;}
+.atc-btn:hover{background:var(--purple);color:white;}
+
+/* ══ TEAMS PAGE ══ */
+.teams-hero{padding:50px 6% 40px;background:linear-gradient(135deg,rgba(147,51,234,0.15),transparent);border-bottom:1px solid var(--border-purple);}
+.teams-hero h1{font-family:'Rajdhani',sans-serif;font-size:clamp(2rem,4vw,3.5rem);font-weight:700;letter-spacing:2px;}
+.teams-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:22px;}
+.team-card{
+  background:var(--card);border:1px solid var(--border);border-radius:18px;
+  padding:32px 20px;text-align:center;cursor:pointer;transition:0.35s;position:relative;overflow:hidden;
+}
+.team-card::before{content:'';position:absolute;inset:0;opacity:0;background:radial-gradient(circle at center,rgba(168,85,247,0.1),transparent 70%);transition:0.4s;}
+.team-card:hover::before{opacity:1;}
+.team-card:hover{transform:translateY(-8px);border-color:var(--border-purple);box-shadow:0 0 28px rgba(168,85,247,0.18);}
+.team-icon{font-size:3rem;margin-bottom:14px;display:block;}
+.team-card h3{font-family:'Rajdhani',sans-serif;font-size:1.1rem;font-weight:700;margin-bottom:5px;}
+.team-card span{color:var(--muted);font-size:0.82rem;}
+.team-wins{margin-top:10px;font-size:0.72rem;color:var(--gold);font-family:'Share Tech Mono',monospace;}
+
+/* ══ COMMUNITY PAGE ══ */
+.comm-hero{
+  min-height:40vh;display:flex;align-items:center;justify-content:center;text-align:center;
+  padding:80px 6%;
+  background:radial-gradient(ellipse 80% 60% at 50% 50%,rgba(168,85,247,0.12),transparent);
+  border-bottom:1px solid var(--border-purple);
+}
+.comm-hero h1{font-family:'Rajdhani',sans-serif;font-size:clamp(2.5rem,5vw,4.5rem);font-weight:700;letter-spacing:2px;margin-bottom:14px;}
+.comm-hero p{color:#9CA3AF;max-width:560px;margin:0 auto 30px;font-size:1rem;line-height:1.8;}
+.social-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px;}
+.social-card{
+  background:var(--card);border:1px solid var(--border);border-radius:18px;
+  padding:28px 22px;display:flex;align-items:center;gap:18px;
+  cursor:pointer;transition:0.3s;
+}
+.social-card:hover{border-color:var(--border-purple);box-shadow:0 0 22px rgba(168,85,247,0.15);transform:translateY(-4px);}
+.s-icon{font-size:2.5rem;flex-shrink:0;}
+.s-name{font-weight:700;font-size:1rem;margin-bottom:3px;}
+.s-count{color:var(--purple-light);font-size:0.8rem;font-family:'Share Tech Mono',monospace;}
+.s-desc{color:var(--muted);font-size:0.78rem;margin-top:3px;}
+.forum-section{margin-top:60px;}
+.forum-post{
+  background:var(--card);border:1px solid var(--border);border-radius:14px;
+  padding:18px 22px;display:flex;align-items:center;gap:16px;
+  cursor:pointer;transition:0.25s;margin-bottom:12px;
+}
+.forum-post:hover{border-color:var(--border-purple);}
+.forum-av{width:42px;height:42px;border-radius:50%;background:var(--bg2);border:2px solid var(--border-purple);display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0;}
+.forum-title{font-weight:600;font-size:0.9rem;margin-bottom:4px;}
+.forum-meta{color:var(--muted);font-size:0.75rem;}
+.forum-tag{display:inline-block;padding:2px 8px;border-radius:10px;background:rgba(168,85,247,0.15);color:var(--purple-light);font-size:0.68rem;margin-left:8px;font-family:'Share Tech Mono',monospace;}
+.forum-replies{margin-left:auto;text-align:center;flex-shrink:0;}
+.forum-replies strong{font-family:'Rajdhani',sans-serif;font-size:1.2rem;color:var(--purple-light);display:block;}
+.forum-replies span{font-size:0.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;}
+
+/* ══ STATS STRIP ══ */
+.stats-strip{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:20px;
+  padding:60px 6%;background:var(--bg2);border-top:1px solid var(--border-purple);border-bottom:1px solid var(--border-purple);
+}
+.stat-block{text-align:center;}
+.stat-num{font-family:'Rajdhani',sans-serif;font-size:2.2rem;font-weight:700;color:var(--purple-light);}
+.stat-ico{font-size:1.8rem;margin-bottom:6px;display:block;}
+.stat-lbl{color:var(--muted);font-size:0.72rem;letter-spacing:1.5px;text-transform:uppercase;margin-top:4px;}
+
+/* ══ FOOTER ══ */
+footer{background:var(--bg4);border-top:1px solid var(--border);padding:50px 6% 28px;}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:36px;}
+.footer-brand-logo{font-family:'Rajdhani',sans-serif;font-size:1.3rem;font-weight:700;color:white;letter-spacing:3px;text-decoration:none;}
+.footer-brand-logo span{color:var(--purple-light);}
+.footer-brand p{color:var(--muted);font-size:0.82rem;line-height:1.7;margin-top:12px;max-width:250px;}
+.footer-col h4{font-family:'Rajdhani',sans-serif;font-size:0.85rem;font-weight:700;color:var(--purple-light);letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:8px;}
+.footer-col ul li{color:var(--muted);font-size:0.82rem;cursor:pointer;transition:0.2s;}
+.footer-col ul li:hover{color:white;}
+.footer-bottom{padding-top:22px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
+.footer-copy{color:var(--muted);font-size:0.78rem;}
+.footer-links{display:flex;gap:16px;}
+.footer-links a{color:var(--muted);font-size:0.75rem;text-decoration:none;transition:0.2s;}
+.footer-links a:hover{color:var(--purple-light);}
+
+/* ══ CART SIDEBAR ══ */
+.cart-sidebar{position:fixed;top:0;right:-410px;width:390px;height:100vh;background:var(--bg3);border-left:1px solid var(--border-purple);z-index:9999;transition:right 0.4s ease;display:flex;flex-direction:column;box-shadow:-10px 0 40px rgba(168,85,247,0.15);}
+.cart-sidebar.open{right:0;}
+.cart-head{padding:20px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;}
+.cart-head h3{font-family:'Rajdhani',sans-serif;font-size:1.15rem;font-weight:700;color:var(--purple-light);}
+.cart-body{flex:1;overflow-y:auto;padding:14px;}
+.cart-empty{text-align:center;color:var(--muted);padding:50px 20px;}
+.cart-empty .ei{font-size:3rem;margin-bottom:12px;}
+.cart-item{display:flex;gap:12px;padding:14px 0;border-bottom:1px solid var(--border);}
+.ci-img{width:60px;height:60px;border-radius:10px;font-size:1.8rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:linear-gradient(135deg,#1a0533,#2d0f52);}
+.ci-info{flex:1;}
+.ci-name{font-weight:700;font-size:0.88rem;}
+.ci-var{color:var(--muted);font-size:0.75rem;margin:2px 0;}
+.ci-price{color:var(--purple-light);font-family:'Rajdhani',sans-serif;font-size:0.9rem;font-weight:700;}
+.ci-rm{background:none;border:none;color:var(--muted);cursor:pointer;font-size:1rem;padding:4px;transition:0.2s;}
+.ci-rm:hover{color:var(--red);}
+.cart-foot{padding:16px;border-top:1px solid var(--border);}
+.cart-total{display:flex;justify-content:space-between;margin-bottom:12px;font-size:0.95rem;}
+.cart-total strong{font-family:'Rajdhani',sans-serif;font-size:1.1rem;color:var(--purple-light);}
+.checkout-btn{width:100%;padding:13px;border-radius:12px;border:none;background:linear-gradient(135deg,#9333EA,#C084FC);color:white;font-size:0.95rem;font-weight:700;cursor:pointer;font-family:'Exo 2',sans-serif;transition:0.3s;}
+.checkout-btn:hover{box-shadow:0 0 22px var(--purple-glow);}
+.cart-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:9998;display:none;}
+.cart-overlay.show{display:block;}
+.x-btn{width:36px;height:36px;border-radius:50%;border:1px solid var(--border);background:rgba(255,255,255,0.04);color:white;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;transition:0.25s;flex-shrink:0;}
+.x-btn:hover{background:var(--purple);}
+
+/* ══ MODALS ══ */
+.modal-ov{position:fixed;inset:0;background:rgba(0,0,0,0.9);display:flex;justify-content:center;align-items:flex-start;opacity:0;visibility:hidden;transition:0.35s;z-index:10000;padding:40px 16px;overflow-y:auto;}
+.modal-ov.open{opacity:1;visibility:visible;}
+.modal-box{width:100%;background:var(--bg3);border-radius:22px;overflow:hidden;border:1px solid var(--border-purple);box-shadow:0 0 60px rgba(168,85,247,0.2);position:relative;animation:mIn 0.35s ease;margin:auto;}
+@keyframes mIn{from{transform:translateY(24px);opacity:0;}to{transform:translateY(0);opacity:1;}}
+
+/* ── AUTH MODAL ── */
+#authModal .modal-box{max-width:430px;padding:40px 34px;}
+.auth-tabs{display:flex;gap:0;margin-bottom:24px;border-bottom:1px solid var(--border);}
+.auth-tab{flex:1;padding:10px;text-align:center;cursor:pointer;font-weight:700;font-size:0.85rem;color:var(--muted);background:transparent;border:none;border-bottom:2px solid transparent;transition:0.25s;font-family:'Exo 2',sans-serif;letter-spacing:0.5px;}
+.auth-tab.active{color:var(--purple-light);border-bottom-color:var(--purple);}
+.auth-panel{display:none;}
+.auth-panel.active{display:block;}
+.auth-title{font-family:'Rajdhani',sans-serif;font-size:1.8rem;font-weight:700;color:var(--purple-light);margin-bottom:4px;}
+.auth-sub{color:var(--muted);font-size:0.83rem;margin-bottom:22px;}
+.fg{margin-bottom:16px;}
+.fg label{display:block;margin-bottom:6px;color:#d1d5db;font-weight:600;font-size:0.82rem;letter-spacing:0.5px;}
+.fg input{width:100%;padding:12px 15px;border-radius:10px;border:1px solid var(--border);background:rgba(255,255,255,0.04);color:white;font-size:0.88rem;font-family:'Exo 2',sans-serif;transition:0.25s;}
+.fg input:focus{outline:none;border-color:var(--purple);box-shadow:0 0 12px rgba(168,85,247,0.2);}
+.fg input::placeholder{color:#374151;}
+.fg-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.rem-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;}
+.rem-lbl{display:flex;align-items:center;gap:7px;color:#d1d5db;font-size:0.82rem;cursor:pointer;}
+.rem-lbl input{accent-color:var(--purple);}
+.forgot{color:var(--purple-light);font-size:0.78rem;text-decoration:none;}
+.forgot:hover{text-shadow:0 0 8px var(--purple-glow);}
+.auth-submit{width:100%;padding:13px;border-radius:12px;border:none;background:linear-gradient(135deg,#9333EA,#C084FC);color:white;font-size:0.95rem;font-weight:700;cursor:pointer;transition:0.3s;font-family:'Exo 2',sans-serif;margin-top:6px;letter-spacing:0.5px;}
+.auth-submit:hover{transform:translateY(-2px);box-shadow:0 0 26px var(--purple-glow);}
+.auth-divider{display:flex;align-items:center;gap:10px;margin:16px 0;color:var(--muted);font-size:0.78rem;}
+.auth-divider::before,.auth-divider::after{content:'';flex:1;height:1px;background:var(--border);}
+.social-auth{display:flex;gap:8px;}
+.soc-btn{flex:1;padding:9px;border-radius:10px;border:1px solid var(--border);background:var(--card);color:white;cursor:pointer;font-size:0.8rem;font-family:'Exo 2',sans-serif;transition:0.25s;display:flex;align-items:center;justify-content:center;gap:6px;}
+.soc-btn:hover{border-color:var(--purple);background:rgba(168,85,247,0.1);}
+.auth-foot{text-align:center;margin-top:18px;color:var(--muted);font-size:0.82rem;}
+.auth-foot a{color:var(--purple-light);text-decoration:none;cursor:pointer;}
+.str-bar{height:4px;border-radius:2px;background:var(--border);overflow:hidden;margin-top:5px;}
+.str-fill{height:100%;border-radius:2px;transition:0.3s;width:0;}
+
+/* ── NEWS MODAL ── */
+#newsModal .modal-box{max-width:820px;}
+#newsModal .modal-box img{width:100%;height:340px;object-fit:cover;display:block;}
+#newsModal .modal-box h2{padding:24px 26px 10px;font-family:'Rajdhani',sans-serif;font-size:1.7rem;font-weight:700;}
+#newsModal .modal-box p{padding:0 26px 32px;color:#9CA3AF;line-height:1.85;font-size:0.9rem;}
+
+/* ── TEAM MODAL ── */
+#teamModal .modal-box{max-width:900px;padding:32px;}
+.tm-head{display:flex;align-items:center;gap:20px;margin-bottom:30px;padding-bottom:22px;border-bottom:1px solid var(--border);}
+.tm-head h2{font-family:'Rajdhani',sans-serif;font-size:2rem;font-weight:700;color:var(--purple-light);}
+.tm-head span{color:var(--muted);}
+.roster{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:16px;}
+.player-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px 12px;text-align:center;transition:0.3s;}
+.player-card:hover{transform:translateY(-5px);border-color:var(--border-purple);box-shadow:0 0 18px rgba(168,85,247,0.15);}
+.player-card img{width:90px;height:90px;border-radius:50%;object-fit:cover;margin-bottom:10px;border:2px solid var(--border-purple);}
+.player-card h4{font-size:0.85rem;font-weight:700;margin-bottom:2px;}
+.player-handle{color:var(--purple-light);font-family:'Rajdhani',sans-serif;font-size:0.75rem;margin-bottom:7px;}
+.player-role{display:inline-block;padding:4px 10px;background:rgba(168,85,247,0.15);border-radius:15px;font-size:0.68rem;color:#d1d5db;}
+
+/* ══ TOAST ══ */
+.toast{
+  position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(20px);
+  background:linear-gradient(135deg,#9333EA,#C084FC);color:white;
+  padding:13px 26px;border-radius:10px;font-family:'Exo 2',sans-serif;
+  font-weight:700;font-size:0.88rem;z-index:99999;
+  box-shadow:0 0 28px rgba(168,85,247,0.5);
+  transition:all 0.4s ease;opacity:0;white-space:nowrap;
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* ══ LOGGED-IN BADGE ══ */
+.user-badge{
+  display:none;align-items:center;gap:8px;
+  background:rgba(168,85,247,0.12);border:1px solid var(--border-purple);
+  border-radius:30px;padding:5px 14px 5px 5px;cursor:pointer;
+}
+.user-badge .uav{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#9333EA,#C084FC);display:flex;align-items:center;justify-content:center;font-size:0.9rem;}
+.user-badge .uname{font-size:0.78rem;font-weight:700;color:white;}
+
+/* ══ RESPONSIVE ══ */
+@media(max-width:1100px){.footer-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:960px){
+  .nav-center{display:none;}
+  .hamburger{display:flex;}
+  .hero{flex-direction:column;text-align:center;padding:50px 5% 40px;}
+  .hero-text{max-width:100%;}
+  .hero p,.hero-btns{margin-left:auto;margin-right:auto;}
+  .hero-btns{justify-content:center;}
+  .hero-stats{justify-content:center;}
+  .hero-visual img{max-width:400px;}
+  .game-featured{grid-template-columns:1fr;}
+  .game-feat-img{min-height:220px;}
+  .lb-head,.lb-row{grid-template-columns:50px 1fr 90px 80px;}
+  .lb-head>*:nth-child(5),.lb-row>*:nth-child(5){display:none;}
+}
+@media(max-width:640px){
+  .hero h1{font-size:3rem;}
+  .footer-grid{grid-template-columns:1fr;}
+  #authModal .modal-box{padding:30px 20px;}
+  .fg-row{grid-template-columns:1fr;}
+  .cart-sidebar{width:100%;right:-100%;}
+  .tm-head{flex-direction:column;text-align:center;}
+  .lb-head,.lb-row{grid-template-columns:45px 1fr 80px;}
+  .lb-head>*:nth-child(4),.lb-row>*:nth-child(4){display:none;}
+  .stats-strip{grid-template-columns:repeat(2,1fr);}
+}
+</style>
+</head>
+<body>
+
+<!-- BG ORBS -->
+<div class="bg-orb orb1"></div>
+<div class="bg-orb orb2"></div>
+<div class="bg-orb orb3"></div>
+
+<!-- CART OVERLAY -->
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+
+<!-- CART SIDEBAR -->
+<div class="cart-sidebar" id="cartSidebar">
+  <div class="cart-head">
+    <h3>🛒 Cart</h3>
+    <button class="x-btn" onclick="closeCart()">✕</button>
+  </div>
+  <div class="cart-body" id="cartBody">
+    <div class="cart-empty"><div class="ei">🛍️</div><p>Your cart is empty.<br>Add some merch!</p></div>
+  </div>
+  <div class="cart-foot" id="cartFoot" style="display:none">
+    <div class="cart-total"><span>Total</span><strong id="cartTotal">₱0</strong></div>
+    <button class="checkout-btn" onclick="toast('🛒 Checkout coming soon! Thanks for shopping.')">Proceed to Checkout →</button>
+  </div>
+</div>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <a class="nav-logo" href="#" onclick="goPage('home');return false;">MONARCH'S <span>DOMAIN</span></a>
+  <div class="nav-center" id="navCenter">
+    <button class="nav-link active" onclick="goPage('home')">Home</button>
+    <button class="nav-link" onclick="goPage('news')">News</button>
+    <button class="nav-link" onclick="goPage('games')">Games</button>
+    <button class="nav-link" onclick="goPage('tournaments')">Tournaments</button>
+    <button class="nav-link" onclick="goPage('leaderboard')">Leaderboard</button>
+    <button class="nav-link" onclick="goPage('streamers')">Streamers</button>
+    <button class="nav-link" onclick="goPage('merch')">Merch</button>
+    <button class="nav-link" onclick="goPage('teams')">Teams</button>
+    <button class="nav-link" onclick="goPage('community')">Community</button>
+  </div>
+  <div class="nav-right">
+    <button class="cart-btn" onclick="openCart()" title="Cart">
+      🛒<span class="cart-count" id="cartCount">0</span>
+    </button>
+    <div class="user-badge" id="userBadge" onclick="logOut()">
+      <div class="uav">👤</div>
+      <span class="uname" id="userBadgeName"></span>
+    </div>
+    <button class="btn-login" id="btnLogin" onclick="openAuth('login')">Log In</button>
+    <button class="btn-signup" id="btnSignup" onclick="openAuth('signup')">Sign Up</button>
+    <button class="hamburger" id="hamburger" onclick="toggleMobile()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-link active" onclick="goPage('home');closeMobile()">🏠 Home</button>
+  <button class="mobile-link" onclick="goPage('news');closeMobile()">📰 News</button>
+  <button class="mobile-link" onclick="goPage('games');closeMobile()">🎮 Games</button>
+  <button class="mobile-link" onclick="goPage('tournaments');closeMobile()">🏆 Tournaments</button>
+  <button class="mobile-link" onclick="goPage('leaderboard');closeMobile()">🥇 Leaderboard</button>
+  <button class="mobile-link" onclick="goPage('streamers');closeMobile()">📺 Streamers</button>
+  <button class="mobile-link" onclick="goPage('merch');closeMobile()">👕 Merch</button>
+  <button class="mobile-link" onclick="goPage('teams');closeMobile()">🏅 Teams</button>
+  <button class="mobile-link" onclick="goPage('community');closeMobile()">🌐 Community</button>
+  <div class="mobile-actions">
+    <button class="btn-login" style="flex:1" onclick="openAuth('login');closeMobile()">Log In</button>
+    <button class="btn-signup" style="flex:1" onclick="openAuth('signup');closeMobile()">Sign Up</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     HOME PAGE
+══════════════════════════════════════════════ -->
+<div class="page active" id="page-home">
+  <div class="hero">
+    <div class="hero-text">
+      <div class="hero-tag">⚡ Esports &amp; Gaming Hub</div>
+      <h1>ARISE<br><span class="accent">MONARCH</span></h1>
+      <p>Enter the shadow realm of esports where legends dominate the battlefield. Explore trending games, elite players, live tournaments, and the future of competitive gaming.</p>
+      <div class="hero-btns">
+        <button class="btn-primary" onclick="goPage('games')">⚔️ Explore Games</button>
+        <button class="btn-outline" onclick="goPage('tournaments')">🏆 Live Events</button>
+      </div>
+      <div class="hero-stats">
+        <div><div class="hero-stat-n">2.4M+</div><div class="hero-stat-l">Players</div></div>
+        <div><div class="hero-stat-n">148</div><div class="hero-stat-l">Tournaments</div></div>
+        <div><div class="hero-stat-n">$12M+</div><div class="hero-stat-l">Prize Pool</div></div>
+        <div><div class="hero-stat-n">32</div><div class="hero-stat-l">Countries</div></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-img-wrap">
+        <div class="hero-img-glow"></div>
+        <img src="https://wallpapercave.com/wp/wp13473642.jpg" alt="Gaming Hero" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?w=600&auto=format'">
+      </div>
+    </div>
+    <div class="scroll-indicator">↓ <span>Scroll</span></div>
+  </div>
+
+  <!-- Home stats strip -->
+  <div class="stats-strip">
+    <div class="stat-block"><span class="stat-ico">👥</span><div class="stat-num">2.4M+</div><div class="stat-lbl">Players</div></div>
+    <div class="stat-block"><span class="stat-ico">🏆</span><div class="stat-num">148</div><div class="stat-lbl">Tournaments</div></div>
+    <div class="stat-block"><span class="stat-ico">💰</span><div class="stat-num">$12M+</div><div class="stat-lbl">Prize Pool</div></div>
+    <div class="stat-block"><span class="stat-ico">🌍</span><div class="stat-num">32</div><div class="stat-lbl">Countries</div></div>
+    <div class="stat-block"><span class="stat-ico">📺</span><div class="stat-num">850+</div><div class="stat-lbl">Streamers</div></div>
+    <div class="stat-block"><span class="stat-ico">🎮</span><div class="stat-num">40+</div><div class="stat-lbl">Games</div></div>
+  </div>
+
+  <!-- Home: Latest News Preview -->
+  <div class="section">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:30px;flex-wrap:wrap;gap:12px;">
+      <div><div class="sec-label">📰 Latest</div><div class="sec-title" style="margin-bottom:0;">Breaking News</div></div>
+      <button class="btn-outline" onclick="goPage('news')" style="padding:9px 20px;font-size:0.8rem;">View All →</button>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:22px;">
+      <div class="card news-card" onclick="openNews('https://wallpapercave.com/wp/wp13473642.jpg','Shadow Tournament Begins','The newest global esports championship begins this season as elite players from around the world prepare to compete in the biggest shadow arena ever created. Fans are expecting legendary battles, high-level strategies, and intense competitive gameplay that could redefine the future of esports. Teams have been training rigorously for months, with roster changes and strategic innovations that promise to deliver unforgettable moments. The tournament will feature a prize pool of over $5 million.')">
+        <div class="news-card-img-wrap"><img class="news-card-img" src="https://wallpapercave.com/wp/wp13473642.jpg" alt="News" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?w=400&auto=format'"><div class="news-badge-cat">🏆 Esports</div></div>
+        <div class="news-card-body"><div class="news-date">MAY 14, 2026</div><h3>Shadow Tournament Begins</h3><p>The newest global esports championship is set to begin with a $5M prize pool.</p></div>
+      </div>
+      <div class="card news-card" onclick="openNews('https://wallpapercave.com/wp/wp8804507.jpg','Valorant Meta Changes','Professional players adapt to the newest tactical gameplay updates as Valorant introduces significant agent balance changes and map modifications. New agent abilities have created fresh tactical possibilities.')">
+        <div class="news-card-img-wrap"><img class="news-card-img" src="https://wallpapercave.com/wp/wp8804507.jpg" alt="News" onerror="this.src='https://images.unsplash.com/photo-1511512578047-dfb367046420?w=400&auto=format'"><div class="news-badge-cat">⚡ Meta</div></div>
+        <div class="news-card-body"><div class="news-date">MAY 8, 2026</div><h3>Valorant Meta Changes</h3><p>Professional players adapt to newest tactical updates and agent reworks.</p></div>
+      </div>
+      <div class="card news-card" onclick="openNews('https://wallpapercave.com/wp/wp11950395.jpg','League Worlds Approaching','The global MOBA scene prepares for the biggest tournament of the year as League of Legends Worlds draws near. Teams from every region have qualified through intense regional competitions.')">
+        <div class="news-card-img-wrap"><img class="news-card-img" src="https://wallpapercave.com/wp/wp11950395.jpg" alt="News" onerror="this.src='https://images.unsplash.com/photo-1560419015-7c427e8ae5ba?w=400&auto=format'"><div class="news-badge-cat">🌍 Worlds</div></div>
+        <div class="news-card-body"><div class="news-date">MAY 6, 2026</div><h3>League Worlds Approaching</h3><p>The global MOBA scene prepares for the biggest tournament of the year.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Home: Featured Game Preview -->
+  <div class="section section-alt">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:30px;flex-wrap:wrap;gap:12px;">
+      <div><div class="sec-label">🎮 Featured</div><div class="sec-title" style="margin-bottom:0;">Top Game</div></div>
+      <button class="btn-outline" onclick="goPage('games')" style="padding:9px 20px;font-size:0.8rem;">All Games →</button>
+    </div>
+    <div class="game-featured">
+      <img class="game-feat-img" src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/8bda9906-4197-4b32-9ad0-19226a1fbb45/dfwr3oc-d3dd1a98-d052-4ba6-bd9c-3c73f3093b32.jpg" alt="Honkai Star Rail" onerror="this.src='https://images.unsplash.com/photo-1614294148960-9aa740632a87?w=600&auto=format'">
+      <div class="game-feat-body">
+        <h2>Honkai: Star Rail</h2>
+        <div class="game-genre">Sci-Fi Turn-Based RPG</div>
+        <div class="game-rating">★★★★★ 9.8 / 10</div>
+        <p>A futuristic fantasy RPG featuring cinematic storytelling, strategic combat, anime-inspired visuals, and breathtaking adventures across the galaxy aboard the Astral Express.</p>
+        <div class="game-tags">
+          <div class="game-tag-pill">Gacha</div>
+          <div class="game-tag-pill">Story-Rich</div>
+          <div class="game-tag-pill">Co-op</div>
+          <div class="game-tag-pill">Free to Play</div>
+        </div>
+        <button class="btn-primary" onclick="goPage('games')">🚀 Explore Game</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Home: Quick Tournament Preview -->
+  <div class="section">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:30px;flex-wrap:wrap;gap:12px;">
+      <div><div class="sec-label">🔴 Live Now</div><div class="sec-title" style="margin-bottom:0;">Active Tournaments</div></div>
+      <button class="btn-outline" onclick="goPage('tournaments')" style="padding:9px 20px;font-size:0.8rem;">View All →</button>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px;">
+      <div class="card t-card"><div class="t-banner t-b1"><span class="t-emoji">🎯</span><div class="live-pill"><span class="live-dot"></span>LIVE</div><div class="t-viewers">👁️ 84.2K</div></div><div class="t-body"><div class="t-game-tag">VALORANT</div><div class="t-name">Shadow Invitational 2026</div><div class="t-date">🗓️ Quarterfinals — Round of 16</div><div class="t-footer"><div class="t-prize">$500,000</div><div class="t-spots">16/16 Teams</div></div><div class="t-bar"><div class="t-bar-fill" style="width:60%"></div></div></div></div>
+      <div class="card t-card"><div class="t-banner t-b2"><span class="t-emoji">⚔️</span><div class="live-pill"><span class="live-dot"></span>LIVE</div><div class="t-viewers">👁️ 212K</div></div><div class="t-body"><div class="t-game-tag">LEAGUE OF LEGENDS</div><div class="t-name">Monarch World Series</div><div class="t-date">🗓️ Group Stage — Day 3</div><div class="t-footer"><div class="t-prize">$2,000,000</div><div class="t-spots">24/24 Teams</div></div><div class="t-bar"><div class="t-bar-fill" style="width:35%"></div></div></div></div>
+      <div class="card t-card"><div class="t-banner t-b4"><span class="t-emoji">🦅</span><div class="live-pill"><span class="live-dot"></span>LIVE</div><div class="t-viewers">👁️ 55.6K</div></div><div class="t-body"><div class="t-game-tag">APEX LEGENDS</div><div class="t-name">Apex Predator Cup</div><div class="t-date">🗓️ Finals — Top 20 Squads</div><div class="t-footer"><div class="t-prize">$300,000</div><div class="t-spots">60/60 Squads</div></div><div class="t-bar"><div class="t-bar-fill" style="width:90%"></div></div></div></div>
+    </div>
+  </div>
+
+  <!-- Footer on home -->
+  <footer>
+    <div class="footer-grid">
+      <div><a class="footer-brand-logo" href="#">MONARCH'S <span>DOMAIN</span></a><p>The ultimate esports hub where legends are born and shadows reign. Compete, connect, and conquer.</p></div>
+      <div class="footer-col"><h4>Navigate</h4><ul><li onclick="goPage('home')">Home</li><li onclick="goPage('news')">News</li><li onclick="goPage('games')">Games</li><li onclick="goPage('tournaments')">Tournaments</li></ul></div>
+      <div class="footer-col"><h4>Community</h4><ul><li onclick="goPage('streamers')">Streamers</li><li onclick="goPage('teams')">Teams</li><li onclick="goPage('leaderboard')">Leaderboard</li><li onclick="goPage('community')">Community</li></ul></div>
+      <div class="footer-col"><h4>Store</h4><ul><li onclick="goPage('merch')">All Merch</li><li onclick="goPage('merch')">Apparel</li><li onclick="goPage('merch')">Accessories</li><li onclick="goPage('merch')">Collectibles</li></ul></div>
+    </div>
+    <div class="footer-bottom"><p class="footer-copy">© 2026 Monarch's Domain · All rights reserved.</p><div class="footer-links"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Support</a></div></div>
+  </footer>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     NEWS PAGE
+══════════════════════════════════════════════ -->
+<div class="page" id="page-news">
+  <div class="news-hero">
+    <div class="sec-label">📰 Latest Updates</div>
+    <h1>NEWS OF DARK</h1>
+    <p>Breaking esports news, gaming updates, tournament results, and exclusive coverage from across the competitive gaming world.</p>
+    <div class="news-filters">
+      <button class="nf-btn active" onclick="filterNews('all',this)">All</button>
+      <button class="nf-btn" onclick="filterNews('esports',this)">🏆 Esports</button>
+      <button class="nf-btn" onclick="filterNews('meta',this)">⚡ Meta</button>
+      <button class="nf-btn" onclick="filterNews('update',this)">📢 Updates</button>
+      <button class="nf-btn" onclick="filterNews('gaming',this)">🎮 Gaming</button>
+    </div>
+  </div>
+  <div class="section">
+    <div class="news-grid" id="newsGrid">
+      <div class="card news-card news-featured" data-cat="esports" onclick="openNews('https://wallpapercave.com/wp/wp13473642.jpg','Shadow Tournament Begins','The newest global esports championship begins this season as elite players from around the world prepare to compete in the biggest shadow arena ever created. Fans are expecting legendary battles, high-level strategies, and intense competitive gameplay that could redefine the future of esports. Teams have been training rigorously for months, with roster changes and strategic innovations that promise to deliver unforgettable moments. The tournament will feature a prize pool of over $5 million, attracting the best talent from every region.')">
+        <div class="news-card-img-wrap"><img class="news-card-img" src="https://wallpapercave.com/wp/wp13473642.jpg" alt="News" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?w=800&auto=format'"><div class="news-badge-cat">🏆 Esports</div></div>
+        <div class="news-card-body"><div class="news-date">MAY 14, 2026 · FEATURED</div><h3>Shadow Tournament Begins — $5M Prize Pool Opens Season</h3><p>The newest global esports championship is set to begin with the biggest prize pool in the platform's history, drawing elite competitors from 32 countries in what promises to be a legendary season.</p></div>
+      </div>
+      <div class="card news-card" data-cat="gaming" onclick="openNews('https://wallpapercave.com/wp/wp13473655.jpg','Rise of New Champions','Professional players continue to dominate the competitive gaming scene with new strategies, mechanical mastery, and teamwork that push the limits of esports competition. New rising stars are beginning to challenge legendary teams across multiple gaming titles. This generation of players has shown unprecedented dedication to their craft, spending countless hours analyzing gameplay and perfecting their skills.')">
+        <div class="news-card-img-wrap"><img class="news-card-img" src="https://wallpapercave.com/wp/wp13473655.jpg" alt="News" onerror="this.src='https://images.unsplash.com/photo-1511512578047-dfb367046420?w=400&auto=format'"><div class="news-badge-cat">🎮 Gaming</div></div>
+        <div class="news-card-body"><div class="news-date">MAY 12, 2026</div><h3>Rise of New Champions</h3><p>Elite players dominate the battlefield with powerful new strategies this season.</p></div>
+      </div>
+      <div class="card news-card" data-cat="update" onclick="openNews('https://wallpapercave.com/wp/wp13473665.jpg','Gaming Industry Update','Massive updates continue to reshape the gaming industry as developers release new expansions, balance changes, visual upgrades, and esports support systems. Competitive gaming communities worldwide are preparing for a new generation of interactive experiences that blur the line between traditional and digital sports.')">
+        <div class="news-card-img-wrap"><img class="news-card-img" src="https://wallpapercave.com/wp/wp13473665.jpg" alt="News" onerror="this.src='https://images.unsplash.com/photo-1560419015-7c427e8ae5ba?w=400&auto=format'"><div class="news-badge-cat">📢 Update</div></div>
+        <div class="news-card-body"><div class="news-date">MAY 10, 2026</div><h3>Gaming Industry Update</h3><p>Massive updates arrive reshaping competitive gaming communities worldwide.</p></div>
+      </div>
+      <div class="card news-card" data-cat="meta" onclick="openNews('https://wallpapercave.com/wp/wp8804507.jpg','Valorant Meta Changes','Professional players adapt to the newest tactical gameplay updates as Valorant introduces significant agent balance changes and map modifications. New agent abilities have created fresh tactical possibilities, while map changes have forced teams to completely rethink their approaches and compositions at the highest levels of competitive play.')">
+        <div class="news-card-img-wrap"><img class="news-card-img" src="https://wallpapercave.com/wp/wp8804507.jpg" alt="News" onerror="this.src='https://images.unsplash.com/photo-1614294148960-9aa740632a87?w=400&auto=format'"><div class="news-badge-cat">⚡ Meta</div></div>
+        <div class="news-card-body"><div class="news-date">MAY 8, 2026</div><h3>Valorant Meta Changes</h3><p>Professional players adapt to newest tactical updates and agent reworks.</p></div>
+      </div>
+      <div class="card news-card" data-cat="esports" onclick="openNews('https://wallpapercave.com/wp/wp11950395.jpg','League Worlds Approaching','The global MOBA scene prepares for the biggest tournament of the year as League of Legends Worlds draws near. Teams from every region have qualified through intense regional competitions, and the stakes have never been higher. Former champions face new challengers in what analysts are calling the most competitive Worlds field ever assembled.')">
+        <div class="news-card-img-wrap"><img class="news-card-img" src="https://wallpapercave.com/wp/wp11950395.jpg" alt="News" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?w=400&auto=format'"><div class="news-badge-cat">🌍 Worlds</div></div>
+        <div class="news-card-body"><div class="news-date">MAY 6, 2026</div><h3>League Worlds Approaching</h3><p>The global MOBA scene prepares for the biggest tournament of the year.</p></div>
+      </div>
+      <div class="card news-card" data-cat="gaming" onclick="openNews('https://wallpapercave.com/wp/wp10929732.jpg','Open World RPG Expansion','Massive new regions and characters arrive for anime RPG fans as Genshin Impact releases its latest expansion, introducing an entirely new nation with unique cultures, characters, and storylines that push the boundaries of what open-world mobile gaming can achieve.')">
+        <div class="news-card-img-wrap"><img class="news-card-img" src="https://wallpapercave.com/wp/wp10929732.jpg" alt="News" onerror="this.src='https://images.unsplash.com/photo-1511512578047-dfb367046420?w=400&auto=format'"><div class="news-badge-cat">🗺️ RPG</div></div>
+        <div class="news-card-body"><div class="news-date">MAY 3, 2026</div><h3>Open World RPG Expansion</h3><p>Massive new regions and characters arrive for anime RPG fans this patch.</p></div>
+      </div>
+      <div class="card news-card" data-cat="esports" onclick="openNews('https://images.unsplash.com/photo-1542751371-adc38448a05e?w=800&auto=format','Dota 2 International Prize Pool Shatters Record','The International 2026 crowdfunding campaign has surpassed all previous records, with the community-driven prize pool crossing $45 million just two weeks after launch. Valve has matched community contributions with exclusive battle pass items that have driven unprecedented engagement across the global Dota 2 playerbase.')">
+        <div class="news-card-img-wrap"><img class="news-card-img" src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=400&auto=format" alt="News"><div class="news-badge-cat">💰 Record</div></div>
+        <div class="news-card-body"><div class="news-date">APR 28, 2026</div><h3>Dota 2 International Prize Pool Shatters Record</h3><p>Community crowdfunding crosses $45M, setting an all-time esports record.</p></div>
+      </div>
+      <div class="card news-card" data-cat="update" onclick="openNews('https://images.unsplash.com/photo-1560419015-7c427e8ae5ba?w=800&auto=format','CS2 Premier Mode Gets Major Overhaul','Valve has deployed the most significant update to Counter-Strike 2\'s Premier mode since launch, introducing regional skill groups, improved anti-cheat detection powered by machine learning, and a revamped ranking system that better reflects individual player performance across a full competitive season.')">
+        <div class="news-card-img-wrap"><img class="news-card-img" src="https://images.unsplash.com/photo-1560419015-7c427e8ae5ba?w=400&auto=format" alt="News"><div class="news-badge-cat">🔧 CS2</div></div>
+        <div class="news-card-body"><div class="news-date">APR 22, 2026</div><h3>CS2 Premier Mode Gets Major Overhaul</h3><p>Valve deploys improved anti-cheat and a revamped ranking system for Premier.</p></div>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <div class="footer-bottom"><p class="footer-copy">© 2026 Monarch's Domain · All rights reserved.</p><div class="footer-links"><a href="#">Privacy</a><a href="#">Terms</a></div></div>
+  </footer>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     GAMES PAGE
+══════════════════════════════════════════════ -->
+<div class="page" id="page-games">
+  <div class="games-hero section-alt" style="padding:50px 6% 40px;border-bottom:1px solid var(--border-purple);">
+    <div class="sec-label">🎮 Featured</div>
+    <h1 style="font-family:'Rajdhani',sans-serif;font-size:clamp(2rem,4vw,3.5rem);font-weight:700;letter-spacing:2px;margin-bottom:6px;">TOP RANKED GAMES</h1>
+    <p style="color:var(--muted);max-width:500px;">Discover the hottest titles in competitive gaming, from tactical shooters to massive multiplayer worlds.</p>
+    <div class="games-tabs" style="margin-top:24px;">
+      <button class="g-tab active" onclick="setGTab('all',this)">All</button>
+      <button class="g-tab" onclick="setGTab('fps',this)">FPS</button>
+      <button class="g-tab" onclick="setGTab('moba',this)">MOBA</button>
+      <button class="g-tab" onclick="setGTab('rpg',this)">RPG</button>
+      <button class="g-tab" onclick="setGTab('battle-royale',this)">Battle Royale</button>
+    </div>
+  </div>
+  <div class="section">
+    <div class="sec-label">⭐ Editor's Pick</div>
+    <div class="sec-title">Featured Title</div>
+    <div class="game-featured" style="margin-bottom:50px;">
+      <img class="game-feat-img" src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/8bda9906-4197-4b32-9ad0-19226a1fbb45/dfwr3oc-d3dd1a98-d052-4ba6-bd9c-3c73f3093b32.jpg" alt="Honkai Star Rail" onerror="this.src='https://images.unsplash.com/photo-1614294148960-9aa740632a87?w=600&auto=format'">
+      <div class="game-feat-body">
+        <h2>Honkai: Star Rail</h2>
+        <div class="game-genre">Sci-Fi Turn-Based RPG</div>
+        <div class="game-rating">★★★★★ 9.8 / 10</div>
+        <p>A futuristic fantasy RPG featuring cinematic storytelling, strategic turn-based combat, and breathtaking adventures across the galaxy. Board the Astral Express and embark on a journey that transcends worlds.</p>
+        <div class="game-tags">
+          <div class="game-tag-pill">Gacha</div>
+          <div class="game-tag-pill">Story-Rich</div>
+          <div class="game-tag-pill">Co-op</div>
+          <div class="game-tag-pill">Free to Play</div>
+          <div class="game-tag-pill">Anime</div>
+        </div>
+        <button class="btn-primary">🚀 Explore Game</button>
+      </div>
+    </div>
+    <div class="sec-label">🎮 All Games</div>
+    <div class="sec-title">Browse Titles</div>
+    <div class="games-list" id="gamesList">
+      <div class="card game-card" data-genre="fps"><div class="game-card-img-wrap"><img class="game-card-img" src="https://wallpapercave.com/wp/wp8804507.jpg" alt="Valorant" onerror="this.src='https://images.unsplash.com/photo-1560419015-7c427e8ae5ba?w=300&auto=format'"></div><div class="game-card-body"><h4>Valorant</h4><span>Tactical FPS</span><div class="game-card-rating">★★★★☆ 9.2</div></div></div>
+      <div class="card game-card" data-genre="rpg"><div class="game-card-img-wrap"><img class="game-card-img" src="https://wallpapercave.com/wp/wp10929732.jpg" alt="Genshin" onerror="this.src='https://images.unsplash.com/photo-1614294148960-9aa740632a87?w=300&auto=format'"></div><div class="game-card-body"><h4>Genshin Impact</h4><span>Open World RPG</span><div class="game-card-rating">★★★★☆ 9.0</div></div></div>
+      <div class="card game-card" data-genre="moba"><div class="game-card-img-wrap"><img class="game-card-img" src="https://wallpapercave.com/wp/wp11950395.jpg" alt="LoL" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?w=300&auto=format'"></div><div class="game-card-body"><h4>League of Legends</h4><span>MOBA</span><div class="game-card-rating">★★★★★ 9.5</div></div></div>
+      <div class="card game-card" data-genre="fps"><div class="game-card-img-wrap"><img class="game-card-img" src="https://images.unsplash.com/photo-1560419015-7c427e8ae5ba?w=300&auto=format" alt="CS2"></div><div class="game-card-body"><h4>Counter-Strike 2</h4><span>Tactical FPS</span><div class="game-card-rating">★★★★★ 9.6</div></div></div>
+      <div class="card game-card" data-genre="moba"><div class="game-card-img-wrap"><img class="game-card-img" src="https://images.unsplash.com/photo-1511512578047-dfb367046420?w=300&auto=format" alt="Dota 2"></div><div class="game-card-body"><h4>Dota 2</h4><span>MOBA</span><div class="game-card-rating">★★★★☆ 9.1</div></div></div>
+      <div class="card game-card" data-genre="battle-royale"><div class="game-card-img-wrap"><img class="game-card-img" src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=300&auto=format" alt="Apex"></div><div class="game-card-body"><h4>Apex Legends</h4><span>Battle Royale</span><div class="game-card-rating">★★★★☆ 8.8</div></div></div>
+      <div class="card game-card" data-genre="battle-royale"><div class="game-card-img-wrap"><img class="game-card-img" src="https://images.unsplash.com/photo-1614294148960-9aa740632a87?w=300&auto=format" alt="Fortnite"></div><div class="game-card-body"><h4>Fortnite</h4><span>Battle Royale</span><div class="game-card-rating">★★★★☆ 8.5</div></div></div>
+      <div class="card game-card" data-genre="fps"><div class="game-card-img-wrap"><img class="game-card-img" src="https://wallpapercave.com/wp/wp13473655.jpg" alt="OW2" onerror="this.src='https://images.unsplash.com/photo-1511512578047-dfb367046420?w=300&auto=format'"></div><div class="game-card-body"><h4>Overwatch 2</h4><span>Hero Shooter</span><div class="game-card-rating">★★★★☆ 8.7</div></div></div>
+    </div>
+  </div>
+  <footer><div class="footer-bottom"><p class="footer-copy">© 2026 Monarch's Domain</p><div class="footer-links"><a href="#">Privacy</a><a href="#">Terms</a></div></div></footer>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     TOURNAMENTS PAGE
+══════════════════════════════════════════════ -->
+<div class="page" id="page-tournaments">
+  <div class="t-hero">
+    <div class="sec-label">🔴 Live &amp; Upcoming</div>
+    <h1>TOURNAMENTS</h1>
+    <p style="color:var(--muted);margin-top:6px;max-width:480px;">Watch live events, track brackets, and register for upcoming competitions across all supported titles.</p>
+  </div>
+  <div class="section">
+    <div class="filter-bar">
+      <button class="f-btn active" onclick="filterT('all',this)">All</button>
+      <button class="f-btn" onclick="filterT('live',this)">🔴 Live</button>
+      <button class="f-btn" onclick="filterT('upcoming',this)">📅 Upcoming</button>
+      <button class="f-btn" onclick="filterT('fps',this)">FPS</button>
+      <button class="f-btn" onclick="filterT('moba',this)">MOBA</button>
+      <button class="f-btn" onclick="filterT('battle-royale',this)">Battle Royale</button>
+    </div>
+    <div class="t-grid" id="tGrid">
+      <div class="card t-card" data-status="live" data-genre="fps"><div class="t-banner t-b1"><span class="t-emoji">🎯</span><div class="live-pill"><span class="live-dot"></span>LIVE</div><div class="t-viewers">👁️ 84.2K watching</div></div><div class="t-body"><div class="t-game-tag">VALORANT</div><div class="t-name">Shadow Invitational 2026</div><div class="t-date">🗓️ Round of 16 — Quarterfinals Next</div><div class="t-footer"><div class="t-prize">$500,000</div><div class="t-spots">16/16 Teams</div></div><div class="t-bar"><div class="t-bar-fill" style="width:60%"></div></div></div></div>
+      <div class="card t-card" data-status="live" data-genre="moba"><div class="t-banner t-b2"><span class="t-emoji">⚔️</span><div class="live-pill"><span class="live-dot"></span>LIVE</div><div class="t-viewers">👁️ 212K watching</div></div><div class="t-body"><div class="t-game-tag">LEAGUE OF LEGENDS</div><div class="t-name">Monarch World Series</div><div class="t-date">🗓️ Group Stage — Day 3</div><div class="t-footer"><div class="t-prize">$2,000,000</div><div class="t-spots">24/24 Teams</div></div><div class="t-bar"><div class="t-bar-fill" style="width:35%"></div></div></div></div>
+      <div class="card t-card" data-status="upcoming" data-genre="fps"><div class="t-banner t-b3"><span class="t-emoji">💣</span><div class="upcoming-pill">⏳ IN 3 DAYS</div></div><div class="t-body"><div class="t-game-tag">COUNTER-STRIKE 2</div><div class="t-name">Dark Matter Open</div><div class="t-date">🗓️ Starts May 19, 2026</div><div class="t-footer"><div class="t-prize">$250,000</div><div class="t-spots">6/8 Teams</div></div><div class="t-bar"><div class="t-bar-fill" style="width:75%"></div></div></div></div>
+      <div class="card t-card" data-status="live" data-genre="battle-royale"><div class="t-banner t-b4"><span class="t-emoji">🦅</span><div class="live-pill"><span class="live-dot"></span>LIVE</div><div class="t-viewers">👁️ 55.6K watching</div></div><div class="t-body"><div class="t-game-tag">APEX LEGENDS</div><div class="t-name">Apex Predator Cup</div><div class="t-date">🗓️ Finals — Top 20 Squads Remain</div><div class="t-footer"><div class="t-prize">$300,000</div><div class="t-spots">60/60 Squads</div></div><div class="t-bar"><div class="t-bar-fill" style="width:90%"></div></div></div></div>
+      <div class="card t-card" data-status="upcoming" data-genre="moba"><div class="t-banner t-b5"><span class="t-emoji">🗡️</span><div class="upcoming-pill">⏳ IN 1 WEEK</div></div><div class="t-body"><div class="t-game-tag">DOTA 2</div><div class="t-name">The Shadow International</div><div class="t-date">🗓️ Starts May 23, 2026</div><div class="t-footer"><div class="t-prize">$5,000,000</div><div class="t-spots">4/16 Teams</div></div><div class="t-bar"><div class="t-bar-fill" style="width:25%"></div></div></div></div>
+      <div class="card t-card" data-status="upcoming" data-genre="battle-royale"><div class="t-banner t-b6"><span class="t-emoji">🏗️</span><div class="upcoming-pill">⏳ IN 5 DAYS</div></div><div class="t-body"><div class="t-game-tag">FORTNITE</div><div class="t-name">Zero Build Championship</div><div class="t-date">🗓️ Starts May 21, 2026</div><div class="t-footer"><div class="t-prize">$1,000,000</div><div class="t-spots">88/100 Players</div></div><div class="t-bar"><div class="t-bar-fill" style="width:88%"></div></div></div></div>
+    </div>
+  </div>
+  <footer><div class="footer-bottom"><p class="footer-copy">© 2026 Monarch's Domain</p><div class="footer-links"><a href="#">Privacy</a><a href="#">Terms</a></div></div></footer>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     LEADERBOARD PAGE
+══════════════════════════════════════════════ -->
+<div class="page" id="page-leaderboard">
+  <div class="lb-hero">
+    <div class="sec-label">🥇 Rankings</div>
+    <h1>GLOBAL LEADERBOARD</h1>
+    <p style="color:var(--muted);margin-top:6px;">Track the world's best players across all competitive titles.</p>
+  </div>
+  <div class="section">
+    <div class="lb-wrap">
+      <div class="lb-tabs">
+        <button class="lb-tab active" onclick="switchLb(this,'lb-valorant')">Valorant</button>
+        <button class="lb-tab" onclick="switchLb(this,'lb-lol')">LoL</button>
+        <button class="lb-tab" onclick="switchLb(this,'lb-cs2')">CS2</button>
+        <button class="lb-tab" onclick="switchLb(this,'lb-apex')">Apex</button>
+      </div>
+      <div id="lb-valorant" class="lb-panel active">
+        <div class="lb-head"><span>Rank</span><span>Player</span><span>K/D Ratio</span><span>Wins</span><span>Points</span></div>
+        <div class="lb-row"><span class="lb-rank r1">👑 1</span><div class="lb-player"><div class="lb-av">😈</div><div><div class="lb-name">ShadowReaper</div><div class="lb-handle">#PH2026</div></div></div><span class="lb-kd">3.84</span><span class="lb-wins">412</span><span class="lb-pts">98,450</span></div>
+        <div class="lb-row"><span class="lb-rank r2">🥈 2</span><div class="lb-player"><div class="lb-av">⚡</div><div><div class="lb-name">StormBreaker</div><div class="lb-handle">#KR2026</div></div></div><span class="lb-kd">3.51</span><span class="lb-wins">389</span><span class="lb-pts">95,200</span></div>
+        <div class="lb-row"><span class="lb-rank r3">🥉 3</span><div class="lb-player"><div class="lb-av">🔥</div><div><div class="lb-name">PhantomX</div><div class="lb-handle">#JP2026</div></div></div><span class="lb-kd">3.22</span><span class="lb-wins">341</span><span class="lb-pts">88,730</span></div>
+        <div class="lb-row"><span class="lb-rank" style="color:var(--muted)">4</span><div class="lb-player"><div class="lb-av">🌙</div><div><div class="lb-name">NightHunter</div><div class="lb-handle">#US2026</div></div></div><span class="lb-kd">2.99</span><span class="lb-wins">302</span><span class="lb-pts">82,100</span></div>
+        <div class="lb-row"><span class="lb-rank" style="color:var(--muted)">5</span><div class="lb-player"><div class="lb-av">🐉</div><div><div class="lb-name">DragonSlayer</div><div class="lb-handle">#CN2026</div></div></div><span class="lb-kd">2.78</span><span class="lb-wins">287</span><span class="lb-pts">76,880</span></div>
+      </div>
+      <div id="lb-lol" class="lb-panel">
+        <div class="lb-head"><span>Rank</span><span>Player</span><span>Win Rate</span><span>Wins</span><span>LP</span></div>
+        <div class="lb-row"><span class="lb-rank r1">👑 1</span><div class="lb-player"><div class="lb-av">⚔️</div><div><div class="lb-name">KingSlayer</div><div class="lb-handle">#KR001</div></div></div><span class="lb-kd">74.2%</span><span class="lb-wins">856</span><span class="lb-pts">2,847 LP</span></div>
+        <div class="lb-row"><span class="lb-rank r2">🥈 2</span><div class="lb-player"><div class="lb-av">🌟</div><div><div class="lb-name">StarForge</div><div class="lb-handle">#KR002</div></div></div><span class="lb-kd">71.8%</span><span class="lb-wins">788</span><span class="lb-pts">2,654 LP</span></div>
+        <div class="lb-row"><span class="lb-rank r3">🥉 3</span><div class="lb-player"><div class="lb-av">🗡️</div><div><div class="lb-name">BladeRunner</div><div class="lb-handle">#PH001</div></div></div><span class="lb-kd">69.5%</span><span class="lb-wins">721</span><span class="lb-pts">2,512 LP</span></div>
+        <div class="lb-row"><span class="lb-rank" style="color:var(--muted)">4</span><div class="lb-player"><div class="lb-av">🌀</div><div><div class="lb-name">VortexMage</div><div class="lb-handle">#EUW1</div></div></div><span class="lb-kd">67.1%</span><span class="lb-wins">680</span><span class="lb-pts">2,311 LP</span></div>
+        <div class="lb-row"><span class="lb-rank" style="color:var(--muted)">5</span><div class="lb-player"><div class="lb-av">🏆</div><div><div class="lb-name">GrandChampion</div><div class="lb-handle">#NA001</div></div></div><span class="lb-kd">65.3%</span><span class="lb-wins">641</span><span class="lb-pts">2,200 LP</span></div>
+      </div>
+      <div id="lb-cs2" class="lb-panel">
+        <div class="lb-head"><span>Rank</span><span>Player</span><span>HS %</span><span>Wins</span><span>Rating</span></div>
+        <div class="lb-row"><span class="lb-rank r1">👑 1</span><div class="lb-player"><div class="lb-av">💣</div><div><div class="lb-name">SniperElite</div><div class="lb-handle">#RU2026</div></div></div><span class="lb-kd">68.4%</span><span class="lb-wins">512</span><span class="lb-pts">1.94</span></div>
+        <div class="lb-row"><span class="lb-rank r2">🥈 2</span><div class="lb-player"><div class="lb-av">🎯</div><div><div class="lb-name">AimGod</div><div class="lb-handle">#BR2026</div></div></div><span class="lb-kd">65.1%</span><span class="lb-wins">488</span><span class="lb-pts">1.82</span></div>
+        <div class="lb-row"><span class="lb-rank r3">🥉 3</span><div class="lb-player"><div class="lb-av">🔫</div><div><div class="lb-name">FlashBanger</div><div class="lb-handle">#SE2026</div></div></div><span class="lb-kd">61.8%</span><span class="lb-wins">455</span><span class="lb-pts">1.76</span></div>
+        <div class="lb-row"><span class="lb-rank" style="color:var(--muted)">4</span><div class="lb-player"><div class="lb-av">💥</div><div><div class="lb-name">FragMaster</div><div class="lb-handle">#DK2026</div></div></div><span class="lb-kd">58.2%</span><span class="lb-wins">412</span><span class="lb-pts">1.68</span></div>
+        <div class="lb-row"><span class="lb-rank" style="color:var(--muted)">5</span><div class="lb-player"><div class="lb-av">🏴‍☠️</div><div><div class="lb-name">GhostRifle</div><div class="lb-handle">#PL2026</div></div></div><span class="lb-kd">55.9%</span><span class="lb-wins">388</span><span class="lb-pts">1.61</span></div>
+      </div>
+      <div id="lb-apex" class="lb-panel">
+        <div class="lb-head"><span>Rank</span><span>Player</span><span>Damage/G</span><span>Wins</span><span>RP</span></div>
+        <div class="lb-row"><span class="lb-rank r1">👑 1</span><div class="lb-player"><div class="lb-av">🦅</div><div><div class="lb-name">ApexPredator</div><div class="lb-handle">#PC2026</div></div></div><span class="lb-kd">3,841</span><span class="lb-wins">224</span><span class="lb-pts">68,430</span></div>
+        <div class="lb-row"><span class="lb-rank r2">🥈 2</span><div class="lb-player"><div class="lb-av">⚡</div><div><div class="lb-name">LightningZap</div><div class="lb-handle">#PS2026</div></div></div><span class="lb-kd">3,612</span><span class="lb-wins">208</span><span class="lb-pts">64,200</span></div>
+        <div class="lb-row"><span class="lb-rank r3">🥉 3</span><div class="lb-player"><div class="lb-av">🔥</div><div><div class="lb-name">InfernoWrath</div><div class="lb-handle">#XB2026</div></div></div><span class="lb-kd">3,390</span><span class="lb-wins">192</span><span class="lb-pts">59,800</span></div>
+        <div class="lb-row"><span class="lb-rank" style="color:var(--muted)">4</span><div class="lb-player"><div class="lb-av">🌊</div><div><div class="lb-name">TidalWave</div><div class="lb-handle">#PC2026</div></div></div><span class="lb-kd">3,201</span><span class="lb-wins">178</span><span class="lb-pts">55,100</span></div>
+        <div class="lb-row"><span class="lb-rank" style="color:var(--muted)">5</span><div class="lb-player"><div class="lb-av">🐺</div><div><div class="lb-name">WolfPack</div><div class="lb-handle">#PC2026</div></div></div><span class="lb-kd">2,988</span><span class="lb-wins">165</span><span class="lb-pts">51,700</span></div>
+      </div>
+    </div>
+  </div>
+  <footer><div class="footer-bottom"><p class="footer-copy">© 2026 Monarch's Domain</p><div class="footer-links"><a href="#">Privacy</a><a href="#">Terms</a></div></div></footer>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     STREAMERS PAGE
+══════════════════════════════════════════════ -->
+<div class="page" id="page-streamers">
+  <div style="padding:50px 6% 40px;background:linear-gradient(135deg,rgba(147,51,234,0.15),transparent);border-bottom:1px solid var(--border-purple);">
+    <div class="sec-label">📺 Live Now</div>
+    <h1 style="font-family:'Rajdhani',sans-serif;font-size:clamp(2rem,4vw,3.5rem);font-weight:700;letter-spacing:2px;">TOP STREAMERS</h1>
+    <p style="color:var(--muted);margin-top:6px;">Watch the realm's finest players live — follow your favorites and never miss a moment.</p>
+  </div>
+  <div class="section">
+    <div class="str-grid">
+      <div class="card str-card"><div class="str-thumb st1">🎮<div class="str-live"><span class="live-dot"></span>LIVE</div><div class="str-views">👁️ 48.2K</div></div><div class="str-body"><div class="str-header"><div class="str-av">😈</div><div><div class="str-name">ShadowKing</div><div class="str-handle">@shadowking</div></div></div><div class="str-game">Playing: Valorant — Ranked</div><button class="follow-btn" onclick="toggleFollow(this)">+ Follow</button></div></div>
+      <div class="card str-card"><div class="str-thumb st2">⚔️<div class="str-live"><span class="live-dot"></span>LIVE</div><div class="str-views">👁️ 32.5K</div></div><div class="str-body"><div class="str-header"><div class="str-av">🌟</div><div><div class="str-name">LegendaryX</div><div class="str-handle">@legendaryx</div></div></div><div class="str-game">Playing: LoL — Diamond Push</div><button class="follow-btn" onclick="toggleFollow(this)">+ Follow</button></div></div>
+      <div class="card str-card"><div class="str-thumb st3">🔥<div class="str-live"><span class="live-dot"></span>LIVE</div><div class="str-views">👁️ 91.8K</div></div><div class="str-body"><div class="str-header"><div class="str-av">🐉</div><div><div class="str-name">DragonForge</div><div class="str-handle">@dragonforge</div></div></div><div class="str-game">Playing: Apex — Pred Grinding</div><button class="follow-btn following" onclick="toggleFollow(this)">✓ Following</button></div></div>
+      <div class="card str-card"><div class="str-thumb st4" style="background:linear-gradient(135deg,#0a1a0a,#0d4a0d);">🏆<div class="str-views" style="position:absolute;bottom:10px;right:10px;background:rgba(0,0,0,0.75);padding:3px 8px;border-radius:10px;font-size:0.68rem;">📴 Offline</div></div><div class="str-body"><div class="str-header"><div class="str-av">🎯</div><div><div class="str-name">PrecisionAim</div><div class="str-handle">@precisionaim</div></div></div><div class="str-game">Last: CS2 — ESL Qualifier</div><button class="follow-btn" onclick="toggleFollow(this)">+ Follow</button></div></div>
+      <div class="card str-card"><div class="str-thumb st5">🌀<div class="str-live"><span class="live-dot"></span>LIVE</div><div class="str-views">👁️ 24.1K</div></div><div class="str-body"><div class="str-header"><div class="str-av">💫</div><div><div class="str-name">VoidWalker</div><div class="str-handle">@voidwalker</div></div></div><div class="str-game">Playing: Honkai Star Rail</div><button class="follow-btn" onclick="toggleFollow(this)">+ Follow</button></div></div>
+      <div class="card str-card"><div class="str-thumb st6">👑<div class="str-live"><span class="live-dot"></span>LIVE</div><div class="str-views">👁️ 156K</div></div><div class="str-body"><div class="str-header"><div class="str-av">👑</div><div><div class="str-name">MonarchQueen</div><div class="str-handle">@monarchqueen</div></div></div><div class="str-game">Playing: Mobile Legends — MPL</div><button class="follow-btn" onclick="toggleFollow(this)">+ Follow</button></div></div>
+    </div>
+  </div>
+  <footer><div class="footer-bottom"><p class="footer-copy">© 2026 Monarch's Domain</p><div class="footer-links"><a href="#">Privacy</a><a href="#">Terms</a></div></div></footer>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     MERCH PAGE
+══════════════════════════════════════════════ -->
+<div class="page" id="page-merch">
+  <div class="merch-hero">
+    <div class="sec-label">👕 Official Store</div>
+    <h1>MONARCH MERCH</h1>
+    <p style="color:var(--muted);margin-top:6px;">Rep the shadow realm. Official Monarch's Domain merchandise.</p>
+  </div>
+  <div class="section">
+    <div class="merch-cats">
+      <button class="mc-btn active" onclick="filterMerch('all',this)">All Items</button>
+      <button class="mc-btn" onclick="filterMerch('apparel',this)">👕 Apparel</button>
+      <button class="mc-btn" onclick="filterMerch('accessories',this)">🎒 Accessories</button>
+      <button class="mc-btn" onclick="filterMerch('drinkware',this)">☕ Drinkware</button>
+      <button class="mc-btn" onclick="filterMerch('footwear',this)">👟 Footwear</button>
+      <button class="mc-btn" onclick="filterMerch('collectibles',this)">🏆 Collectibles</button>
+    </div>
+    <div class="merch-grid" id="merchGrid">
+      <div class="card m-card" data-category="apparel"><div class="m-badge badge-hot">🔥 HOT</div><div class="m-img mb1">👕</div><div class="m-body"><div class="m-cat">Apparel</div><div class="m-name">Monarch Shadow Tee</div><div class="m-desc">Premium heavyweight cotton. Shadow logo embossed with glow ink. Available S–3XL.</div><div class="m-colors"><div class="c-dot on" style="background:#1a0533"></div><div class="c-dot" style="background:#000"></div><div class="c-dot" style="background:#fff;border-color:rgba(255,255,255,0.3)"></div></div><div class="m-footer"><div><span class="m-price">₱1,499</span></div><button class="atc-btn" onclick="addToCart('Monarch Shadow Tee','₱1,499','👕','Apparel')">+ Cart</button></div></div></div>
+      <div class="card m-card" data-category="apparel"><div class="m-badge badge-new">✨ NEW</div><div class="m-img mb2">🧥</div><div class="m-body"><div class="m-cat">Apparel</div><div class="m-name">Arise Hoodie</div><div class="m-desc">Fleece-lined heavyweight hoodie. "ARISE" spellout across the chest. Kangaroo pocket.</div><div class="m-colors"><div class="c-dot on" style="background:#0c1a3a"></div><div class="c-dot" style="background:#1a0533"></div><div class="c-dot" style="background:#111"></div></div><div class="m-footer"><div><span class="m-price">₱2,999</span></div><button class="atc-btn" onclick="addToCart('Arise Hoodie','₱2,999','🧥','Apparel')">+ Cart</button></div></div></div>
+      <div class="card m-card" data-category="apparel"><div class="m-badge badge-sale">💰 SALE</div><div class="m-img mb4">👔</div><div class="m-body"><div class="m-cat">Apparel</div><div class="m-name">Domain Zip-Up Jacket</div><div class="m-desc">Full zip windbreaker with purple reflective trim. Perfect for LAN events.</div><div class="m-colors"><div class="c-dot on" style="background:#000"></div><div class="c-dot" style="background:#1a0533"></div></div><div class="m-footer"><div><span class="m-price">₱2,499</span><span class="m-old">₱3,299</span></div><button class="atc-btn" onclick="addToCart('Domain Zip-Up Jacket','₱2,499','👔','Apparel')">+ Cart</button></div></div></div>
+      <div class="card m-card" data-category="apparel"><div class="m-img mb6">🩱</div><div class="m-body"><div class="m-cat">Apparel</div><div class="m-name">Monarch Jersey</div><div class="m-desc">Official-style esports jersey. Moisture-wicking fabric. Customizable name on back.</div><div class="m-colors"><div class="c-dot on" style="background:#1a0533"></div><div class="c-dot" style="background:#0c1a3a"></div><div class="c-dot" style="background:#000"></div></div><div class="m-footer"><div><span class="m-price">₱1,899</span></div><button class="atc-btn" onclick="addToCart('Monarch Jersey','₱1,899','🩱','Apparel')">+ Cart</button></div></div></div>
+      <div class="card m-card" data-category="drinkware"><div class="m-badge badge-new">✨ NEW</div><div class="m-img mb3">☕</div><div class="m-body"><div class="m-cat">Drinkware</div><div class="m-name">Monarch Gaming Mug</div><div class="m-desc">350ml ceramic mug. Heat-reactive color-changing design. Dishwasher safe.</div><div class="m-colors"><div class="c-dot on" style="background:#1a0533"></div><div class="c-dot" style="background:#000"></div></div><div class="m-footer"><div><span class="m-price">₱799</span></div><button class="atc-btn" onclick="addToCart('Monarch Gaming Mug','₱799','☕','Drinkware')">+ Cart</button></div></div></div>
+      <div class="card m-card" data-category="drinkware"><div class="m-img mb5">🥤</div><div class="m-body"><div class="m-cat">Drinkware</div><div class="m-name">Shadow Tumbler 40oz</div><div class="m-desc">Stainless steel insulated tumbler. Keeps drinks cold 24hrs, hot 12hrs. Leak-proof lid.</div><div class="m-colors"><div class="c-dot on" style="background:#0c1a3a"></div><div class="c-dot" style="background:#1a0533"></div><div class="c-dot" style="background:#111"></div></div><div class="m-footer"><div><span class="m-price">₱1,199</span></div><button class="atc-btn" onclick="addToCart('Shadow Tumbler 40oz','₱1,199','🥤','Drinkware')">+ Cart</button></div></div></div>
+      <div class="card m-card" data-category="footwear"><div class="m-badge badge-hot">🔥 HOT</div><div class="m-img mb8">👟</div><div class="m-body"><div class="m-cat">Footwear</div><div class="m-name">Monarch Laced Sneakers</div><div class="m-desc">Comfort sole gaming-inspired sneakers. Purple accent laces. Sizes 37–46.</div><div class="m-colors"><div class="c-dot on" style="background:#000"></div><div class="c-dot" style="background:#fff;border-color:rgba(255,255,255,0.3)"></div></div><div class="m-footer"><div><span class="m-price">₱4,499</span></div><button class="atc-btn" onclick="addToCart('Monarch Laced Sneakers','₱4,499','👟','Footwear')">+ Cart</button></div></div></div>
+      <div class="card m-card" data-category="footwear"><div class="m-img mb7">🎀</div><div class="m-body"><div class="m-cat">Footwear / Accessories</div><div class="m-name">Shadow Lace Pack</div><div class="m-desc">3-pack premium flat laces. Monarch logo woven in. Fits most sneakers 120–160cm.</div><div class="m-colors"><div class="c-dot on" style="background:#7c3aed"></div><div class="c-dot" style="background:#000"></div><div class="c-dot" style="background:#fff;border-color:rgba(255,255,255,0.3)"></div></div><div class="m-footer"><div><span class="m-price">₱299</span></div><button class="atc-btn" onclick="addToCart('Shadow Lace Pack','₱299','🎀','Footwear')">+ Cart</button></div></div></div>
+      <div class="card m-card" data-category="accessories"><div class="m-badge badge-new">✨ NEW</div><div class="m-img mb6" style="background:linear-gradient(135deg,#0a1a0a,#0d3a0d)">🎒</div><div class="m-body"><div class="m-cat">Accessories</div><div class="m-name">Monarch Gaming Backpack</div><div class="m-desc">30L padded laptop sleeve. USB charging port. Purple-stitched Monarch logo.</div><div class="m-colors"><div class="c-dot on" style="background:#000"></div><div class="c-dot" style="background:#1a0533"></div></div><div class="m-footer"><div><span class="m-price">₱2,799</span></div><button class="atc-btn" onclick="addToCart('Monarch Gaming Backpack','₱2,799','🎒','Accessories')">+ Cart</button></div></div></div>
+      <div class="card m-card" data-category="accessories"><div class="m-img mb1">🧢</div><div class="m-body"><div class="m-cat">Accessories</div><div class="m-name">Shadow Snapback Cap</div><div class="m-desc">Embroidered Monarch crown logo. Adjustable snapback. One size fits all.</div><div class="m-colors"><div class="c-dot on" style="background:#000"></div><div class="c-dot" style="background:#1a0533"></div><div class="c-dot" style="background:#fff;border-color:rgba(255,255,255,0.3)"></div></div><div class="m-footer"><div><span class="m-price">₱899</span></div><button class="atc-btn" onclick="addToCart('Shadow Snapback Cap','₱899','🧢','Accessories')">+ Cart</button></div></div></div>
+      <div class="card m-card" data-category="collectibles"><div class="m-badge badge-hot">🔥 LIMITED</div><div class="m-img mb4">🏆</div><div class="m-body"><div class="m-cat">Collectibles</div><div class="m-name">Monarch Trophy Figure</div><div class="m-desc">10-inch hand-painted resin figure. Limited to 500 units. Numbered certificate.</div><div class="m-footer"><div><span class="m-price">₱3,999</span></div><button class="atc-btn" onclick="addToCart('Monarch Trophy Figure','₱3,999','🏆','Collectibles')">+ Cart</button></div></div></div>
+      <div class="card m-card" data-category="collectibles"><div class="m-img mb2">📿</div><div class="m-body"><div class="m-cat">Collectibles</div><div class="m-name">Crown Keychain Set</div><div class="m-desc">Metal die-cast keychain set (3pcs). Monarch crown, sword, and shield designs.</div><div class="m-footer"><div><span class="m-price">₱549</span></div><button class="atc-btn" onclick="addToCart('Crown Keychain Set','₱549','📿','Collectibles')">+ Cart</button></div></div></div>
+    </div>
+  </div>
+  <footer><div class="footer-bottom"><p class="footer-copy">© 2026 Monarch's Domain</p><div class="footer-links"><a href="#">Privacy</a><a href="#">Terms</a></div></div></footer>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     TEAMS PAGE
+══════════════════════════════════════════════ -->
+<div class="page" id="page-teams">
+  <div class="teams-hero">
+    <div class="sec-label">🏅 Rosters</div>
+    <h1>MONARCH TEAMS</h1>
+    <p style="color:var(--muted);margin-top:6px;">Meet the elite rosters carrying the Monarch banner in every major esports title.</p>
+  </div>
+  <div class="section">
+    <div class="teams-grid">
+      <div class="team-card" onclick="openTeam('csgo')"><span class="team-icon">💣</span><h3>Counter-Strike 2</h3><span>Tactical Shooter</span><div class="team-wins">🏆 32 Tournament Wins</div></div>
+      <div class="team-card" onclick="openTeam('valorant')"><span class="team-icon">🎯</span><h3>Valorant</h3><span>Tactical FPS</span><div class="team-wins">🏆 28 Tournament Wins</div></div>
+      <div class="team-card" onclick="openTeam('lol')"><span class="team-icon">⚔️</span><h3>League of Legends</h3><span>MOBA</span><div class="team-wins">🏆 41 Tournament Wins</div></div>
+      <div class="team-card" onclick="openTeam('dota2')"><span class="team-icon">🗡️</span><h3>Dota 2</h3><span>MOBA</span><div class="team-wins">🏆 19 Tournament Wins</div></div>
+      <div class="team-card" onclick="openTeam('apex')"><span class="team-icon">🦅</span><h3>Apex Legends</h3><span>Battle Royale</span><div class="team-wins">🏆 14 Tournament Wins</div></div>
+      <div class="team-card" onclick="openTeam('overwatch')"><span class="team-icon">🛡️</span><h3>Overwatch 2</h3><span>Hero Shooter</span><div class="team-wins">🏆 22 Tournament Wins</div></div>
+      <div class="team-card" onclick="openTeam('mobilelegends')"><span class="team-icon">📱</span><h3>Mobile Legends</h3><span>MOBA</span><div class="team-wins">🏆 38 Tournament Wins</div></div>
+      <div class="team-card" onclick="openTeam('fortnite')"><span class="team-icon">🏗️</span><h3>Fortnite</h3><span>Battle Royale</span><div class="team-wins">🏆 11 Tournament Wins</div></div>
+    </div>
+  </div>
+  <footer><div class="footer-bottom"><p class="footer-copy">© 2026 Monarch's Domain</p><div class="footer-links"><a href="#">Privacy</a><a href="#">Terms</a></div></div></footer>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     COMMUNITY PAGE
+══════════════════════════════════════════════ -->
+<div class="page" id="page-community">
+  <div class="comm-hero">
+    <div>
+      <div class="sec-label">🌐 Join Us</div>
+      <h1>JOIN THE SHADOW<br>COMMUNITY</h1>
+      <p>Connect with millions of gamers, esports enthusiasts, and competitive players around the world. Enter the next generation of competitive gaming.</p>
+      <button class="btn-primary" onclick="openAuth('signup')" style="font-size:1rem;padding:14px 30px;">⚡ Create Free Account</button>
+    </div>
+  </div>
+  <div class="section">
+    <div class="sec-label">🔗 Find Us On</div>
+    <div class="sec-title">Social Channels</div>
+    <div class="social-grid">
+      <div class="social-card"><div class="s-icon">💬</div><div><div class="s-name">Discord</div><div class="s-count">128K members</div><div class="s-desc">Chat, voice, tournaments, clan rooms</div></div></div>
+      <div class="social-card"><div class="s-icon">🐦</div><div><div class="s-name">Twitter / X</div><div class="s-count">342K followers</div><div class="s-desc">Live scores, news, and drops</div></div></div>
+      <div class="social-card"><div class="s-icon">📱</div><div><div class="s-name">Facebook</div><div class="s-count">210K likes</div><div class="s-desc">Events, streams, community posts</div></div></div>
+      <div class="social-card"><div class="s-icon">▶️</div><div><div class="s-name">YouTube</div><div class="s-count">580K subscribers</div><div class="s-desc">VODs, highlights, and originals</div></div></div>
+      <div class="social-card"><div class="s-icon">📸</div><div><div class="s-name">Instagram</div><div class="s-count">195K followers</div><div class="s-desc">Merch, event photos, player spotlights</div></div></div>
+      <div class="social-card"><div class="s-icon">🎵</div><div><div class="s-name">TikTok</div><div class="s-count">88K followers</div><div class="s-desc">Clips, highlights, meme content</div></div></div>
+    </div>
+    <div class="forum-section">
+      <div class="sec-label">💬 Discussions</div>
+      <div class="sec-title">Hot Forum Posts</div>
+      <div class="forum-post"><div class="forum-av">😈</div><div><div class="forum-title">Who do you think wins Shadow Invitational 2026?<span class="forum-tag">Esports</span></div><div class="forum-meta">by ShadowKing · 2 hours ago · 🔥 Trending</div></div><div class="forum-replies"><strong style="color:var(--purple-light);font-family:'Rajdhani',sans-serif;font-size:1.2rem;display:block;">284</strong><span style="font-size:0.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;">Replies</span></div></div>
+      <div class="forum-post"><div class="forum-av">⚡</div><div><div class="forum-title">Valorant new meta breakdown — which agents are must-picks?<span class="forum-tag">Meta</span></div><div class="forum-meta">by StormBreaker · 4 hours ago</div></div><div class="forum-replies"><strong style="color:var(--purple-light);font-family:'Rajdhani',sans-serif;font-size:1.2rem;display:block;">157</strong><span style="font-size:0.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;">Replies</span></div></div>
+      <div class="forum-post"><div class="forum-av">🐉</div><div><div class="forum-title">Best budget gaming PC build under ₱30K in 2026?<span class="forum-tag">Hardware</span></div><div class="forum-meta">by DragonForge · 6 hours ago</div></div><div class="forum-replies"><strong style="color:var(--purple-light);font-family:'Rajdhani',sans-serif;font-size:1.2rem;display:block;">203</strong><span style="font-size:0.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;">Replies</span></div></div>
+      <div class="forum-post"><div class="forum-av">🌙</div><div><div class="forum-title">MLBB vs LoL Mobile — which game is better for competitive PH?<span class="forum-tag">Discussion</span></div><div class="forum-meta">by NightHunter · 10 hours ago</div></div><div class="forum-replies"><strong style="color:var(--purple-light);font-family:'Rajdhani',sans-serif;font-size:1.2rem;display:block;">312</strong><span style="font-size:0.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;">Replies</span></div></div>
+      <div class="forum-post"><div class="forum-av">🏆</div><div><div class="forum-title">Monarch Merch unboxing — is the ₱4,499 sneaker worth it?<span class="forum-tag">Merch</span></div><div class="forum-meta">by GrandChampion · 1 day ago</div></div><div class="forum-replies"><strong style="color:var(--purple-light);font-family:'Rajdhani',sans-serif;font-size:1.2rem;display:block;">89</strong><span style="font-size:0.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;">Replies</span></div></div>
+    </div>
+  </div>
+  <footer>
+    <div class="footer-grid">
+      <div><a class="footer-brand-logo" href="#">MONARCH'S <span>DOMAIN</span></a><p>The ultimate esports hub where legends are born and shadows reign. Compete, connect, and conquer.</p></div>
+      <div class="footer-col"><h4>Navigate</h4><ul><li onclick="goPage('home')">Home</li><li onclick="goPage('news')">News</li><li onclick="goPage('games')">Games</li><li onclick="goPage('tournaments')">Tournaments</li></ul></div>
+      <div class="footer-col"><h4>Community</h4><ul><li onclick="goPage('streamers')">Streamers</li><li onclick="goPage('teams')">Teams</li><li onclick="goPage('leaderboard')">Leaderboard</li><li onclick="goPage('community')">Community</li></ul></div>
+      <div class="footer-col"><h4>Store</h4><ul><li onclick="goPage('merch')">All Merch</li><li onclick="goPage('merch')">Apparel</li><li onclick="goPage('merch')">Accessories</li><li onclick="goPage('merch')">Collectibles</li></ul></div>
+    </div>
+    <div class="footer-bottom"><p class="footer-copy">© 2026 Monarch's Domain · All rights reserved.</p><div class="footer-links"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Support</a></div></div>
+  </footer>
+</div>
+
+<!-- ══ NEWS MODAL ══ -->
+<div class="modal-ov" id="newsModal" onclick="if(event.target===this)closeModal('newsModal')">
+  <div class="modal-box" style="max-width:820px;">
+    <button class="x-btn" onclick="closeModal('newsModal')" style="position:absolute;top:16px;right:16px;z-index:5">✕</button>
+    <img id="mImg" src="" alt="" style="width:100%;height:340px;object-fit:cover;display:block;">
+    <h2 id="mTitle" style="padding:24px 26px 10px;font-family:'Rajdhani',sans-serif;font-size:1.7rem;font-weight:700;"></h2>
+    <p id="mText" style="padding:0 26px 32px;color:#9CA3AF;line-height:1.85;font-size:0.9rem;"></p>
+  </div>
+</div>
+
+<!-- ══ AUTH MODAL ══ -->
+<div class="modal-ov" id="authModal" onclick="if(event.target===this)closeModal('authModal')">
+  <div class="modal-box" style="max-width:430px;padding:40px 32px;">
+    <button class="x-btn" onclick="closeModal('authModal')" style="position:absolute;top:16px;right:16px">✕</button>
+    <div class="auth-tabs">
+      <button class="auth-tab active" id="loginTab" onclick="switchAuth('login')">Log In</button>
+      <button class="auth-tab" id="signupTab" onclick="switchAuth('signup')">Sign Up</button>
+    </div>
+    <!-- LOGIN -->
+    <div class="auth-panel active" id="loginPanel">
+      <div class="auth-title">Welcome Back</div>
+      <div class="auth-sub">Enter the Shadow Realm 👁️</div>
+      <div class="fg"><label>Username or Email</label><input type="text" id="loginUser" placeholder="your@email.com or @username"></div>
+      <div class="fg"><label>Password</label><input type="password" id="loginPass" placeholder="••••••••"></div>
+      <div class="rem-row"><label class="rem-lbl"><input type="checkbox"> Remember me</label><a class="forgot" href="#">Forgot password?</a></div>
+      <button class="auth-submit" onclick="handleLogin()">Log In →</button>
+      <div class="auth-divider">or continue with</div>
+      <div class="social-auth">
+        <button class="soc-btn">🌐 Google</button>
+        <button class="soc-btn">📘 Facebook</button>
+        <button class="soc-btn">🐦 Twitter</button>
+      </div>
+      <div class="auth-foot">Don't have an account? <a onclick="switchAuth('signup')">Sign Up</a></div>
+    </div>
+    <!-- SIGNUP -->
+    <div class="auth-panel" id="signupPanel">
+      <div class="auth-title">Join the Realm</div>
+      <div class="auth-sub">Create your Monarch account ⚡</div>
+      <div class="fg-row">
+        <div class="fg"><label>First Name</label><input type="text" id="signupFirst" placeholder="John"></div>
+        <div class="fg"><label>Last Name</label><input type="text" id="signupLast" placeholder="Doe"></div>
+      </div>
+      <div class="fg"><label>Username</label><input type="text" id="signupUser" placeholder="@shadowking"></div>
+      <div class="fg"><label>Email</label><input type="email" id="signupEmail" placeholder="your@email.com"></div>
+      <div class="fg">
+        <label>Password</label>
+        <input type="password" id="signupPass" placeholder="Create a strong password" oninput="updateStr(this.value)">
+        <div class="str-bar"><div class="str-fill" id="strFill"></div></div>
+      </div>
+      <button class="auth-submit" onclick="handleSignup()">Create Account →</button>
+      <div class="auth-divider">or sign up with</div>
+      <div class="social-auth">
+        <button class="soc-btn">🌐 Google</button>
+        <button class="soc-btn">📘 Facebook</button>
+      </div>
+      <div class="auth-foot">Already have an account? <a onclick="switchAuth('login')">Log In</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ TEAM MODAL ══ -->
+<div class="modal-ov" id="teamModal" onclick="if(event.target===this)closeModal('teamModal')">
+  <div class="modal-box" style="max-width:900px;padding:32px;">
+    <button class="x-btn" onclick="closeModal('teamModal')" style="position:absolute;top:16px;right:16px">✕</button>
+    <div class="tm-head">
+      <div style="font-size:3.5rem" id="tmIcon"></div>
+      <div><h2 id="tmName"></h2><span id="tmGame"></span></div>
+    </div>
+    <div class="roster" id="rosterGrid"></div>
+  </div>
+</div>
+
+<script>
+// ══════════ TEAM DATA ══════════
+const teams={
+  csgo:{name:'Monarch CS2',game:'Counter-Strike 2',icon:'💣',players:[{n:'Alexander "Shadow" Chen',r:'In-Game Leader',img:'https://randomuser.me/api/portraits/men/1.jpg'},{n:'Marcus "Phantom" Silva',r:'AWPer',img:'https://randomuser.me/api/portraits/men/2.jpg'},{n:'Erik "Storm" Johansson',r:'Entry Fragger',img:'https://randomuser.me/api/portraits/men/3.jpg'},{n:'David "Frost" Kim',r:'Support',img:'https://randomuser.me/api/portraits/men/4.jpg'},{n:'Lucas "Venom" Martinez',r:'Lurker',img:'https://randomuser.me/api/portraits/men/5.jpg'}]},
+  valorant:{name:'Monarch Valorant',game:'Valorant',icon:'🎯',players:[{n:'James "Reaper" Wilson',r:'Duelist',img:'https://randomuser.me/api/portraits/men/11.jpg'},{n:'Sarah "Specter" Lee',r:'Controller',img:'https://randomuser.me/api/portraits/women/1.jpg'},{n:'Ryan "Eclipse" Park',r:'Sentinel',img:'https://randomuser.me/api/portraits/men/12.jpg'},{n:'Michelle "Nova" Zhang',r:'Initiator',img:'https://randomuser.me/api/portraits/women/2.jpg'},{n:'Tyler "Wraith" Johnson',r:'Flex / IGL',img:'https://randomuser.me/api/portraits/men/13.jpg'}]},
+  lol:{name:'Monarch LoL',game:'League of Legends',icon:'⚔️',players:[{n:'Kevin "Titan" Wang',r:'Top Lane',img:'https://randomuser.me/api/portraits/men/21.jpg'},{n:'Daniel "Jungle King" Choi',r:'Jungle',img:'https://randomuser.me/api/portraits/men/22.jpg'},{n:'Michael "Arcane" Liu',r:'Mid Lane',img:'https://randomuser.me/api/portraits/men/23.jpg'},{n:'Chris "Marksman" Brown',r:'Bot Lane (ADC)',img:'https://randomuser.me/api/portraits/men/24.jpg'},{n:'Emma "Guardian" Taylor',r:'Support',img:'https://randomuser.me/api/portraits/women/11.jpg'}]},
+  dota2:{name:'Monarch Dota 2',game:'Dota 2',icon:'🗡️',players:[{n:'Andrei "Carry" Popov',r:'Position 1',img:'https://randomuser.me/api/portraits/men/31.jpg'},{n:'Viktor "Midlane" Petrov',r:'Position 2',img:'https://randomuser.me/api/portraits/men/32.jpg'},{n:'Dmitri "Offlane" Ivanov',r:'Position 3',img:'https://randomuser.me/api/portraits/men/33.jpg'},{n:'Sergei "Soft" Kuznetsov',r:'Position 4',img:'https://randomuser.me/api/portraits/men/34.jpg'},{n:'Alexei "Captain" Volkov',r:'Position 5',img:'https://randomuser.me/api/portraits/men/35.jpg'}]},
+  apex:{name:'Monarch Apex',game:'Apex Legends',icon:'🦅',players:[{n:'Jake "Predator" Miller',r:'Fragger',img:'https://randomuser.me/api/portraits/men/41.jpg'},{n:'Amanda "Valk" Rodriguez',r:'Movement / IGL',img:'https://randomuser.me/api/portraits/women/21.jpg'},{n:'Brandon "Anchor" Davis',r:'Support / Anchor',img:'https://randomuser.me/api/portraits/men/42.jpg'}]},
+  overwatch:{name:'Monarch Overwatch',game:'Overwatch 2',icon:'🛡️',players:[{n:'Nathan "Shield" Adams',r:'Tank',img:'https://randomuser.me/api/portraits/men/51.jpg'},{n:'Jessica "Sniper" White',r:'DPS Hitscan',img:'https://randomuser.me/api/portraits/women/31.jpg'},{n:'Kyle "Projectile" Garcia',r:'DPS Flex',img:'https://randomuser.me/api/portraits/men/52.jpg'},{n:'Rachel "Mercy" Thompson',r:'Main Support',img:'https://randomuser.me/api/portraits/women/32.jpg'},{n:'Andrew "Flex" Martinez',r:'Flex Support',img:'https://randomuser.me/api/portraits/men/53.jpg'}]},
+  mobilelegends:{name:'Monarch MLBB',game:'Mobile Legends',icon:'📱',players:[{n:'Renz "Jungler" Santos',r:'Jungler',img:'https://randomuser.me/api/portraits/men/61.jpg'},{n:'Kyle "Gold" Rivera',r:'Gold Lane',img:'https://randomuser.me/api/portraits/men/62.jpg'},{n:'Mica "Roam" Dela Cruz',r:'Roamer',img:'https://randomuser.me/api/portraits/women/41.jpg'},{n:'Jan "EXP" Reyes',r:'EXP Lane',img:'https://randomuser.me/api/portraits/men/63.jpg'},{n:'Paolo "Mid" Garcia',r:'Mid Lane',img:'https://randomuser.me/api/portraits/men/64.jpg'}]},
+  fortnite:{name:'Monarch Fortnite',game:'Fortnite',icon:'🏗️',players:[{n:'Zach "Builder" Young',r:'Builder / Fighter',img:'https://randomuser.me/api/portraits/men/71.jpg'},{n:'Olivia "Clutch" Green',r:'Fragger',img:'https://randomuser.me/api/portraits/women/51.jpg'},{n:'Mason "Storm" Hall',r:'IGL / Support',img:'https://randomuser.me/api/portraits/men/72.jpg'},{n:'Sophia "Sniper" Allen',r:'Long Range',img:'https://randomuser.me/api/portraits/women/52.jpg'}]}
+};
+
+// ══════════ AUTH / USER STATE ══════════
+let currentUser=null;
+function loadUser(){
+  try{const u=localStorage.getItem('md_user');if(u){currentUser=JSON.parse(u);updateUserUI();}}catch(e){}
+}
+function saveUser(u){try{localStorage.setItem('md_user',JSON.stringify(u));}catch(e){}}
+function updateUserUI(){
+  const badge=document.getElementById('userBadge');
+  const bName=document.getElementById('userBadgeName');
+  const btnL=document.getElementById('btnLogin');
+  const btnS=document.getElementById('btnSignup');
+  if(currentUser){
+    bName.textContent=currentUser.username;
+    badge.style.display='flex';
+    btnL.style.display='none';
+    btnS.style.display='none';
+  } else {
+    badge.style.display='none';
+    btnL.style.display='';
+    btnS.style.display='';
+  }
+}
+function logOut(){
+  currentUser=null;
+  try{localStorage.removeItem('md_user');}catch(e){}
+  updateUserUI();
+  toast('👋 Logged out. See you in the realm!');
+}
+
+// ══════════ NAVIGATION ══════════
+function goPage(name){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-link').forEach(l=>l.classList.remove('active'));
+  document.querySelectorAll('.mobile-link').forEach(l=>l.classList.remove('active'));
+  const pg=document.getElementById('page-'+name);
+  if(pg){pg.classList.add('active');window.scrollTo(0,0);}
+  // highlight correct nav button
+  const links=document.querySelectorAll('.nav-link');
+  const pages=['home','news','games','tournaments','leaderboard','streamers','merch','teams','community'];
+  const idx=pages.indexOf(name);
+  if(idx>=0&&links[idx]) links[idx].classList.add('active');
+  const mlinks=document.querySelectorAll('.mobile-link');
+  if(idx>=0&&mlinks[idx]) mlinks[idx].classList.add('active');
+}
+
+// ══════════ MOBILE MENU ══════════
+function toggleMobile(){
+  const m=document.getElementById('mobileMenu');
+  const h=document.getElementById('hamburger');
+  m.classList.toggle('open');
+  h.classList.toggle('open');
+}
+function closeMobile(){
+  document.getElementById('mobileMenu').classList.remove('open');
+  document.getElementById('hamburger').classList.remove('open');
+}
+
+// ══════════ MODALS ══════════
+function openModal(id){document.getElementById(id).classList.add('open');document.body.style.overflow='hidden';}
+function closeModal(id){document.getElementById(id).classList.remove('open');document.body.style.overflow='';}
+
+// ══════════ NEWS MODAL ══════════
+function openNews(img,title,text){
+  document.getElementById('mImg').src=img;
+  document.getElementById('mTitle').textContent=title;
+  document.getElementById('mText').textContent=text;
+  openModal('newsModal');
+}
+
+// ══════════ AUTH ══════════
+function openAuth(tab){openModal('authModal');switchAuth(tab);}
+function switchAuth(tab){
+  document.getElementById('loginPanel').classList.toggle('active',tab==='login');
+  document.getElementById('signupPanel').classList.toggle('active',tab==='signup');
+  document.getElementById('loginTab').classList.toggle('active',tab==='login');
+  document.getElementById('signupTab').classList.toggle('active',tab==='signup');
+}
+function handleLogin(){
+  const user=document.getElementById('loginUser').value.trim();
+  const pass=document.getElementById('loginPass').value;
+  if(!user){alert('Please enter your username or email.');return;}
+  if(!pass){alert('Please enter your password.');return;}
+  // Check saved users
+  let found=false;
+  try{
+    const saved=JSON.parse(localStorage.getItem('md_accounts')||'[]');
+    const match=saved.find(a=>a.email===user||a.username===user||a.username===('@'+user));
+    if(match){
+      if(match.password===pass){found=true;currentUser={username:match.username,email:match.email};}
+      else{alert('Wrong password. Try again.');return;}
+    }
+  }catch(e){}
+  if(!found){
+    // create session anyway (demo)
+    const uname=user.includes('@')?(user.split('@')[0]):(user.startsWith('@')?user.slice(1):user);
+    currentUser={username:uname,email:user};
+  }
+  saveUser(currentUser);
+  updateUserUI();
+  closeModal('authModal');
+  toast('✅ Welcome back, '+currentUser.username+'!');
+}
+function handleSignup(){
+  const first=document.getElementById('signupFirst').value.trim();
+  const user=document.getElementById('signupUser').value.trim();
+  const email=document.getElementById('signupEmail').value.trim();
+  const pass=document.getElementById('signupPass').value;
+  if(!user){alert('Please enter a username.');return;}
+  if(!email||!email.includes('@')){alert('Please enter a valid email.');return;}
+  if(pass.length<6){alert('Password must be at least 6 characters.');return;}
+  const uname=user.startsWith('@')?user.slice(1):user;
+  try{
+    const saved=JSON.parse(localStorage.getItem('md_accounts')||'[]');
+    if(saved.find(a=>a.email===email)){alert('Email already registered.');return;}
+    if(saved.find(a=>a.username===uname)){alert('Username already taken.');return;}
+    saved.push({username:uname,email,password:pass,firstName:first});
+    localStorage.setItem('md_accounts',JSON.stringify(saved));
+  }catch(e){}
+  currentUser={username:uname,email};
+  saveUser(currentUser);
+  updateUserUI();
+  closeModal('authModal');
+  toast('⚡ Account created! Welcome to Monarch\'s Domain, @'+uname+'!');
+}
+function updateStr(v){
+  const f=document.getElementById('strFill');
+  let s=0;
+  if(v.length>=8)s++;if(/[A-Z]/.test(v))s++;if(/[0-9]/.test(v))s++;if(/[^A-Za-z0-9]/.test(v))s++;
+  const ws=['0%','25%','50%','75%','100%'];
+  const cs=['transparent','#EF4444','#F97316','#EAB308','#22C55E'];
+  f.style.width=ws[s];f.style.background=cs[s];
+}
+
+// ══════════ TEAM MODAL ══════════
+function openTeam(key){
+  const t=teams[key];if(!t)return;
+  document.getElementById('tmIcon').textContent=t.icon;
+  document.getElementById('tmName').textContent=t.name;
+  document.getElementById('tmGame').textContent=t.game;
+  document.getElementById('rosterGrid').innerHTML=t.players.map(p=>{
+    const parts=p.n.split('"');
+    return`<div class="player-card"><img src="${p.img}" alt="${p.n}" onerror="this.style.display='none'"><h4>${parts[0].trim()}</h4><div class="player-handle">"${parts[1]}"</div><div class="player-role">${p.r}</div></div>`;
+  }).join('');
+  openModal('teamModal');
+}
+
+// ══════════ LEADERBOARD ══════════
+function switchLb(btn,panelId){
+  document.querySelectorAll('.lb-tab').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.lb-panel').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById(panelId).classList.add('active');
+}
+
+// ══════════ FILTERS ══════════
+function filterNews(cat,btn){
+  document.querySelectorAll('.nf-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('#newsGrid .news-card').forEach(c=>{
+    c.style.display=(cat==='all'||c.dataset.cat===cat)?'':'none';
+  });
+}
+function filterT(f,btn){
+  document.querySelectorAll('.f-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('#tGrid .t-card').forEach(c=>{
+    const show=f==='all'||c.dataset.status===f||c.dataset.genre===f;
+    c.style.display=show?'':'none';
+  });
+}
+function filterMerch(cat,btn){
+  document.querySelectorAll('.mc-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('#merchGrid .m-card').forEach(c=>{
+    c.style.display=(cat==='all'||c.dataset.category===cat)?'':'none';
+  });
+}
+function setGTab(genre,btn){
+  document.querySelectorAll('.g-tab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('#gamesList .game-card').forEach(c=>{
+    c.style.display=(genre==='all'||c.dataset.genre===genre)?'':'none';
+  });
+}
+
+// ══════════ FOLLOW ══════════
+function toggleFollow(btn){
+  if(btn.classList.contains('following')){btn.classList.remove('following');btn.textContent='+ Follow';}
+  else{btn.classList.add('following');btn.textContent='✓ Following';}
+}
+
+// ══════════ CART ══════════
+let cart=[];
+function addToCart(name,price,emoji,cat){
+  const ex=cart.find(i=>i.name===name);
+  if(ex)ex.qty++;else cart.push({name,price,emoji,cat,qty:1});
+  renderCart();openCart();
+}
+function removeFromCart(name){cart=cart.filter(i=>i.name!==name);renderCart();}
+function renderCart(){
+  const body=document.getElementById('cartBody');
+  const foot=document.getElementById('cartFoot');
+  const cnt=document.getElementById('cartCount');
+  const total=document.getElementById('cartTotal');
+  const n=cart.reduce((a,i)=>a+i.qty,0);
+  cnt.textContent=n;cnt.style.display=n>0?'flex':'none';
+  if(!cart.length){body.innerHTML='<div class="cart-empty"><div class="ei">🛍️</div><p>Your cart is empty.<br>Add some merch!</p></div>';foot.style.display='none';return;}
+  body.innerHTML=cart.map(i=>`<div class="cart-item"><div class="ci-img">${i.emoji}</div><div class="ci-info"><div class="ci-name">${i.name}</div><div class="ci-var">${i.cat} · Qty: ${i.qty}</div><div class="ci-price">${i.price}</div></div><button class="ci-rm" onclick="removeFromCart('${i.name}')">✕</button></div>`).join('');
+  const t=cart.reduce((a,i)=>a+parseFloat(i.price.replace(/[₱,]/g,''))*i.qty,0);
+  total.textContent='₱'+t.toLocaleString('en-PH');
+  foot.style.display='block';
+}
+function openCart(){document.getElementById('cartSidebar').classList.add('open');document.getElementById('cartOverlay').classList.add('show');document.body.style.overflow='hidden';}
+function closeCart(){document.getElementById('cartSidebar').classList.remove('open');document.getElementById('cartOverlay').classList.remove('show');document.body.style.overflow='';}
+
+// ══════════ TOAST ══════════
+function toast(msg){
+  const el=document.createElement('div');el.className='toast';el.textContent=msg;
+  document.body.appendChild(el);
+  setTimeout(()=>el.classList.add('show'),50);
+  setTimeout(()=>el.classList.remove('show'),3500);
+  setTimeout(()=>el.remove(),4000);
+}
+
+// ══════════ COLOR DOTS ══════════
+document.querySelectorAll('.m-colors').forEach(g=>{
+  g.querySelectorAll('.c-dot').forEach(d=>{
+    d.addEventListener('click',()=>{g.querySelectorAll('.c-dot').forEach(x=>x.classList.remove('on'));d.classList.add('on');});
+  });
+});
+
+// ══════════ ESC ══════════
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){['newsModal','authModal','teamModal'].forEach(id=>closeModal(id));closeCart();closeMobile();}
+});
+
+// ══════════ INIT ══════════
+loadUser();
+</script>
+</body>
+</html>
