@@ -724,7 +724,7 @@ footer{background:var(--bg4);border-top:1px solid var(--border);padding:50px 6% 
     <div class="hero-visual">
       <div class="hero-img-wrap">
         <div class="hero-img-glow"></div>
-        <img src="https://wallpapercave.com/wp/wp13473642.jpg" alt="Gaming Hero" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?w=600&auto=format'">
+        <img src="images/HERO IMAGE/jinwoo purple.jpg" alt="Gaming Hero" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?w=600&auto=format'">
       </div>
     </div>
     <div class="scroll-indicator">↓ <span>Scroll</span></div>
@@ -742,25 +742,54 @@ footer{background:var(--bg4);border-top:1px solid var(--border);padding:50px 6% 
 
   <!-- Home: Latest News Preview -->
   <div class="section">
-    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:30px;flex-wrap:wrap;gap:12px;">
-      <div><div class="sec-label">📰 Latest</div><div class="sec-title" style="margin-bottom:0;">Breaking News</div></div>
-      <button class="btn-outline" onclick="goPage('news')" style="padding:9px 20px;font-size:0.8rem;">View All →</button>
-    </div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:22px;">
-      <div class="card news-card" onclick="openNews('https://wallpapercave.com/wp/wp13473642.jpg','Shadow Tournament Begins','The newest global esports championship begins this season as elite players from around the world prepare to compete in the biggest shadow arena ever created. Fans are expecting legendary battles, high-level strategies, and intense competitive gameplay that could redefine the future of esports. Teams have been training rigorously for months, with roster changes and strategic innovations that promise to deliver unforgettable moments. The tournament will feature a prize pool of over $5 million.')">
-        <div class="news-card-img-wrap"><img class="news-card-img" src="https://wallpapercave.com/wp/wp13473642.jpg" alt="News" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?w=400&auto=format'"><div class="news-badge-cat">🏆 Esports</div></div>
-        <div class="news-card-body"><div class="news-date">MAY 14, 2026</div><h3>Shadow Tournament Begins</h3><p>The newest global esports championship is set to begin with a $5M prize pool.</p></div>
-      </div>
-      <div class="card news-card" onclick="openNews('https://wallpapercave.com/wp/wp8804507.jpg','Valorant Meta Changes','Professional players adapt to the newest tactical gameplay updates as Valorant introduces significant agent balance changes and map modifications. New agent abilities have created fresh tactical possibilities.')">
-        <div class="news-card-img-wrap"><img class="news-card-img" src="https://wallpapercave.com/wp/wp8804507.jpg" alt="News" onerror="this.src='https://images.unsplash.com/photo-1511512578047-dfb367046420?w=400&auto=format'"><div class="news-badge-cat">⚡ Meta</div></div>
-        <div class="news-card-body"><div class="news-date">MAY 8, 2026</div><h3>Valorant Meta Changes</h3><p>Professional players adapt to newest tactical updates and agent reworks.</p></div>
-      </div>
-      <div class="card news-card" onclick="openNews('https://wallpapercave.com/wp/wp11950395.jpg','League Worlds Approaching','The global MOBA scene prepares for the biggest tournament of the year as League of Legends Worlds draws near. Teams from every region have qualified through intense regional competitions.')">
-        <div class="news-card-img-wrap"><img class="news-card-img" src="https://wallpapercave.com/wp/wp11950395.jpg" alt="News" onerror="this.src='https://images.unsplash.com/photo-1560419015-7c427e8ae5ba?w=400&auto=format'"><div class="news-badge-cat">🌍 Worlds</div></div>
-        <div class="news-card-body"><div class="news-date">MAY 6, 2026</div><h3>League Worlds Approaching</h3><p>The global MOBA scene prepares for the biggest tournament of the year.</p></div>
-      </div>
-    </div>
+  <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:30px;flex-wrap:wrap;gap:12px;">
+    <div><div class="sec-label">📰 Latest</div><div class="sec-title" style="margin-bottom:0;">Breaking News</div></div>
+    <button class="btn-outline" onclick="goPage('news')" style="padding:9px 20px;font-size:0.8rem;">View All →</button>
   </div>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:22px;">
+
+    <!-- Faker -->
+    <div class="card news-card" onclick="openNews('images/NEWS ARTCILE/faker.jpg','Faker’s T1 Retain League of Legends World Title','T1, led by Faker, defeated Bilibili Gaming in a thrilling 3-2 grand finals match in London to secure their fifth League of Legends World Championship title. Faker earned MVP honors and helped T1 complete back-to-back world championships.')">
+      <div class="news-card-img-wrap">
+        <img class="news-card-img" src="images/NEWS ARTCILE/faker.jpg" alt="Faker">
+        <div class="news-badge-cat">🏆 League</div>
+      </div>
+      <div class="news-card-body">
+        <div class="news-date">NOVEMBER 2024</div>
+        <h3>Faker’s T1 Win Worlds Again</h3>
+        <p>T1 defeated BLG in a dramatic finals series as Faker secured his fifth world championship.</p>
+      </div>
+    </div>
+
+    <!-- AP Bren -->
+    <div class="card news-card" onclick="openNews('images/NEWS ARTCILE/M2 BREN.jpg','AP Bren Wins M5 World Championship','AP Bren defeated Onic Indonesia 4-3 in an intense grand finals to become the first MLBB team to win multiple world titles. The Filipino squad completed the historic victory in front of their home crowd at Rizal Memorial Coliseum.')">
+      <div class="news-card-img-wrap">
+        <img class="news-card-img" src="images/NEWS ARTCILE/M2 BREN.jpg" alt="AP Bren">
+        <div class="news-badge-cat">🔥 MLBB</div>
+      </div>
+      <div class="news-card-body">
+        <div class="news-date">DECEMBER 2024</div>
+        <h3>AP Bren Crowned M5 Champions</h3>
+        <p>AP Bren survived a reverse sweep attempt from Onic ID to win the M5 World Championship.</p>
+      </div>
+    </div>
+
+    <!-- Bugha -->
+    <div class="card news-card" onclick="openNews('images/NEWS ARTCILE/BUGHA WINS FORNITE.jpg','Bugha Wins Fortnite World Cup Solo Finals','Fortnite player Kyle “Bugha” Giersdorf dominated the Fortnite World Cup Solo Finals with 59 points. The 16-year-old claimed the championship title and took home the massive $3 million grand prize.')">
+      <div class="news-card-img-wrap">
+        <img class="news-card-img" src="images/NEWS ARTCILE/BUGHA WINS FORNITE.jpg" alt="Bugha">
+        <div class="news-badge-cat">🎮 Fortnite</div>
+      </div>
+      <div class="news-card-body">
+        <div class="news-date">JULY 2019</div>
+        <h3>Bugha Wins Fortnite World Cup</h3>
+        <p>Bugha dominated the Fortnite Solo Finals and earned the $3 million championship prize.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
 
   <!-- Home: Featured Game Preview -->
   <div class="section section-alt">
@@ -769,7 +798,7 @@ footer{background:var(--bg4);border-top:1px solid var(--border);padding:50px 6% 
       <button class="btn-outline" onclick="goPage('games')" style="padding:9px 20px;font-size:0.8rem;">All Games →</button>
     </div>
     <div class="game-featured">
-      <img class="game-feat-img" src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/8bda9906-4197-4b32-9ad0-19226a1fbb45/dfwr3oc-d3dd1a98-d052-4ba6-bd9c-3c73f3093b32.jpg" alt="Honkai Star Rail" onerror="this.src='https://images.unsplash.com/photo-1614294148960-9aa740632a87?w=600&auto=format'">
+      <img class="game-feat-img" src="images/HONKAI.jpg" alt="Honkai Star Rail" onerror="this.src='https://images.unsplash.com/photo-1614294148960-9aa740632a87?w=600&auto=format'">
       <div class="game-feat-body">
         <h2>Honkai: Star Rail</h2>
         <div class="game-genre">Sci-Fi Turn-Based RPG</div>
@@ -815,57 +844,166 @@ footer{background:var(--bg4);border-top:1px solid var(--border);padding:50px 6% 
      NEWS PAGE
 ══════════════════════════════════════════════ -->
 <div class="page" id="page-news">
+
   <div class="news-hero">
-    <div class="sec-label">📰 Latest Updates</div>
-    <h1>NEWS OF DARK</h1>
-    <p>Breaking esports news, gaming updates, tournament results, and exclusive coverage from across the competitive gaming world.</p>
+    <h1>ESPORTS NEWS</h1>
+    <p>Latest updates from the biggest competitive games around the world.</p>
+
     <div class="news-filters">
-      <button class="nf-btn active" onclick="filterNews('all',this)">All</button>
-      <button class="nf-btn" onclick="filterNews('esports',this)">🏆 Esports</button>
-      <button class="nf-btn" onclick="filterNews('meta',this)">⚡ Meta</button>
-      <button class="nf-btn" onclick="filterNews('update',this)">📢 Updates</button>
-      <button class="nf-btn" onclick="filterNews('gaming',this)">🎮 Gaming</button>
+      <button class="nf-btn active">All</button>
+      <button class="nf-btn">FPS</button>
+      <button class="nf-btn">MOBA</button>
+      <button class="nf-btn">Battle Royale</button>
+      <button class="nf-btn">Mobile</button>
     </div>
   </div>
+
   <div class="section">
-    <div class="news-grid" id="newsGrid">
-      <div class="card news-card news-featured" data-cat="esports" onclick="openNews('https://wallpapercave.com/wp/wp13473642.jpg','Shadow Tournament Begins','The newest global esports championship begins this season as elite players from around the world prepare to compete in the biggest shadow arena ever created. Fans are expecting legendary battles, high-level strategies, and intense competitive gameplay that could redefine the future of esports. Teams have been training rigorously for months, with roster changes and strategic innovations that promise to deliver unforgettable moments. The tournament will feature a prize pool of over $5 million, attracting the best talent from every region.')">
-        <div class="news-card-img-wrap"><img class="news-card-img" src="https://wallpapercave.com/wp/wp13473642.jpg" alt="News" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?w=800&auto=format'"><div class="news-badge-cat">🏆 Esports</div></div>
-        <div class="news-card-body"><div class="news-date">MAY 14, 2026 · FEATURED</div><h3>Shadow Tournament Begins — $5M Prize Pool Opens Season</h3><p>The newest global esports championship is set to begin with the biggest prize pool in the platform's history, drawing elite competitors from 32 countries in what promises to be a legendary season.</p></div>
+    <div class="news-grid">
+
+      <!-- 1 Faker -->
+      <div class="card news-card news-featured"
+      onclick="openNews('images/NEWS ARTCILE/faker.jpg','Faker’s T1 Retain League of Legends World Title','T1 defeated Bilibili Gaming in a thrilling 3-2 grand finals match to secure their fifth League of Legends world championship. Faker earned MVP honors and helped T1 complete back-to-back world titles.')">
+        <div class="news-card-img-wrap">
+          <img class="news-card-img" src="images/NEWS ARTCILE/faker.jpg" alt="Faker">
+          <div class="news-badge-cat">🏆 League of Legends</div>
+        </div>
+        <div class="news-card-body">
+          <div class="news-date">NOVEMBER 2024</div>
+          <h3>Faker’s T1 Win Worlds Again</h3>
+          <p>T1 defeated BLG in an intense five-game finals series as Faker secured his fifth world championship title.</p>
+        </div>
       </div>
-      <div class="card news-card" data-cat="gaming" onclick="openNews('https://wallpapercave.com/wp/wp13473655.jpg','Rise of New Champions','Professional players continue to dominate the competitive gaming scene with new strategies, mechanical mastery, and teamwork that push the limits of esports competition. New rising stars are beginning to challenge legendary teams across multiple gaming titles. This generation of players has shown unprecedented dedication to their craft, spending countless hours analyzing gameplay and perfecting their skills.')">
-        <div class="news-card-img-wrap"><img class="news-card-img" src="https://wallpapercave.com/wp/wp13473655.jpg" alt="News" onerror="this.src='https://images.unsplash.com/photo-1511512578047-dfb367046420?w=400&auto=format'"><div class="news-badge-cat">🎮 Gaming</div></div>
-        <div class="news-card-body"><div class="news-date">MAY 12, 2026</div><h3>Rise of New Champions</h3><p>Elite players dominate the battlefield with powerful new strategies this season.</p></div>
+
+      <!-- 2 AP Bren -->
+      <div class="card news-card"
+      onclick="openNews('images/NEWS ARTCILE/M2 BREN.jpg','AP Bren Wins M5 World Championship','AP Bren defeated Onic Indonesia 4-3 to become the first MLBB team to win multiple world championships in front of their home crowd.')">
+        <div class="news-card-img-wrap">
+          <img class="news-card-img" src="images/NEWS ARTCILE/M2 BREN.jpg" alt="AP Bren">
+          <div class="news-badge-cat">🔥 MLBB</div>
+        </div>
+        <div class="news-card-body">
+          <div class="news-date">DECEMBER 2024</div>
+          <h3>AP Bren Crowned M5 Champions</h3>
+          <p>AP Bren survived a reverse sweep attempt to secure the MLBB world title.</p>
+        </div>
       </div>
-      <div class="card news-card" data-cat="update" onclick="openNews('https://wallpapercave.com/wp/wp13473665.jpg','Gaming Industry Update','Massive updates continue to reshape the gaming industry as developers release new expansions, balance changes, visual upgrades, and esports support systems. Competitive gaming communities worldwide are preparing for a new generation of interactive experiences that blur the line between traditional and digital sports.')">
-        <div class="news-card-img-wrap"><img class="news-card-img" src="https://wallpapercave.com/wp/wp13473665.jpg" alt="News" onerror="this.src='https://images.unsplash.com/photo-1560419015-7c427e8ae5ba?w=400&auto=format'"><div class="news-badge-cat">📢 Update</div></div>
-        <div class="news-card-body"><div class="news-date">MAY 10, 2026</div><h3>Gaming Industry Update</h3><p>Massive updates arrive reshaping competitive gaming communities worldwide.</p></div>
+
+      <!-- 3 Bugha -->
+      <div class="card news-card"
+      onclick="openNews('images/NEWS ARTCILE/BUGHA WINS FORNITE.jpg','Bugha Wins Fortnite World Cup Solo Finals','Bugha dominated the Fortnite World Cup Solo Finals and earned the massive $3 million championship prize.')">
+        <div class="news-card-img-wrap">
+          <img class="news-card-img" src="images/NEWS ARTCILE/BUGHA WINS FORNITE.jpg" alt="Bugha">
+          <div class="news-badge-cat">🎮 Fortnite</div>
+        </div>
+        <div class="news-card-body">
+          <div class="news-date">JULY 2019</div>
+          <h3>Bugha Wins Fortnite World Cup</h3>
+          <p>Bugha finished with 59 points and claimed the $3 million grand prize.</p>
+        </div>
       </div>
-      <div class="card news-card" data-cat="meta" onclick="openNews('https://wallpapercave.com/wp/wp8804507.jpg','Valorant Meta Changes','Professional players adapt to the newest tactical gameplay updates as Valorant introduces significant agent balance changes and map modifications. New agent abilities have created fresh tactical possibilities, while map changes have forced teams to completely rethink their approaches and compositions at the highest levels of competitive play.')">
-        <div class="news-card-img-wrap"><img class="news-card-img" src="https://wallpapercave.com/wp/wp8804507.jpg" alt="News" onerror="this.src='https://images.unsplash.com/photo-1614294148960-9aa740632a87?w=400&auto=format'"><div class="news-badge-cat">⚡ Meta</div></div>
-        <div class="news-card-body"><div class="news-date">MAY 8, 2026</div><h3>Valorant Meta Changes</h3><p>Professional players adapt to newest tactical updates and agent reworks.</p></div>
+
+      <!-- 4 KarlTzy -->
+      <div class="card news-card"
+      onclick="openNews('images/NEWS ARTCILE/TLPH_KarlTzy_S17.JPG','KarlTzy Called the GOAT of MLBB','KarlTzy continues to dominate Mobile Legends history with multiple world championships and legendary performances.')">
+        <div class="news-card-img-wrap">
+          <img class="news-card-img" src="images/NEWS ARTCILE/TLPH_KarlTzy_S17.JPG" alt="KarlTzy">
+          <div class="news-badge-cat">⚔️ MLBB</div>
+        </div>
+        <div class="news-card-body">
+          <div class="news-date">2025</div>
+          <h3>KarlTzy Continues GOAT Debate</h3>
+          <p>The legendary jungler remains one of the greatest MLBB players ever.</p>
+        </div>
       </div>
-      <div class="card news-card" data-cat="esports" onclick="openNews('https://wallpapercave.com/wp/wp11950395.jpg','League Worlds Approaching','The global MOBA scene prepares for the biggest tournament of the year as League of Legends Worlds draws near. Teams from every region have qualified through intense regional competitions, and the stakes have never been higher. Former champions face new challengers in what analysts are calling the most competitive Worlds field ever assembled.')">
-        <div class="news-card-img-wrap"><img class="news-card-img" src="https://wallpapercave.com/wp/wp11950395.jpg" alt="News" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?w=400&auto=format'"><div class="news-badge-cat">🌍 Worlds</div></div>
-        <div class="news-card-body"><div class="news-date">MAY 6, 2026</div><h3>League Worlds Approaching</h3><p>The global MOBA scene prepares for the biggest tournament of the year.</p></div>
+
+      <!-- 5 Aspas -->
+      <div class="card news-card"
+      onclick="openNews('images/NEWS ARTCILE/BEST JETT 4.jpg','Is LOUD Aspas Still the Best Jett Player?','Aspas remains one of the most feared Valorant duelists thanks to his aggressive Jett gameplay and elite mechanics.')">
+        <div class="news-card-img-wrap">
+          <img class="news-card-img" src="images/NEWS ARTCILE/BEST JETT 4.jpg" alt="Aspas">
+          <div class="news-badge-cat">🎯 Valorant</div>
+        </div>
+        <div class="news-card-body">
+          <div class="news-date">2025</div>
+          <h3>Is Aspas Still the Best Jett?</h3>
+          <p>The Brazilian star continues to dominate Valorant’s competitive scene.</p>
+        </div>
       </div>
-      <div class="card news-card" data-cat="gaming" onclick="openNews('https://wallpapercave.com/wp/wp10929732.jpg','Open World RPG Expansion','Massive new regions and characters arrive for anime RPG fans as Genshin Impact releases its latest expansion, introducing an entirely new nation with unique cultures, characters, and storylines that push the boundaries of what open-world mobile gaming can achieve.')">
-        <div class="news-card-img-wrap"><img class="news-card-img" src="https://wallpapercave.com/wp/wp10929732.jpg" alt="News" onerror="this.src='https://images.unsplash.com/photo-1511512578047-dfb367046420?w=400&auto=format'"><div class="news-badge-cat">🗺️ RPG</div></div>
-        <div class="news-card-body"><div class="news-date">MAY 3, 2026</div><h3>Open World RPG Expansion</h3><p>Massive new regions and characters arrive for anime RPG fans this patch.</p></div>
+
+      <!-- 6 Roblox -->
+      <div class="card news-card"
+      onclick="openNews('images/NEWS ARTCILE/ROBLOX MORE THAN GAME.jpg','Roblox More Than Just a Game','Roblox continues to grow as one of the biggest online gaming platforms with millions of active users.')">
+        <div class="news-card-img-wrap">
+          <img class="news-card-img" src="images/NEWS ARTCILE/ROBLOX MORE THAN GAME.jpg" alt="Roblox">
+          <div class="news-badge-cat">🧱 Roblox</div>
+        </div>
+        <div class="news-card-body">
+          <div class="news-date">2025</div>
+          <h3>Roblox Continues Massive Growth</h3>
+          <p>The gaming platform now reaches millions of players every single day.</p>
+        </div>
       </div>
-      <div class="card news-card" data-cat="esports" onclick="openNews('https://images.unsplash.com/photo-1542751371-adc38448a05e?w=800&auto=format','Dota 2 International Prize Pool Shatters Record','The International 2026 crowdfunding campaign has surpassed all previous records, with the community-driven prize pool crossing $45 million just two weeks after launch. Valve has matched community contributions with exclusive battle pass items that have driven unprecedented engagement across the global Dota 2 playerbase.')">
-        <div class="news-card-img-wrap"><img class="news-card-img" src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=400&auto=format" alt="News"><div class="news-badge-cat">💰 Record</div></div>
-        <div class="news-card-body"><div class="news-date">APR 28, 2026</div><h3>Dota 2 International Prize Pool Shatters Record</h3><p>Community crowdfunding crosses $45M, setting an all-time esports record.</p></div>
+
+      <!-- 7 CrossFire -->
+      <div class="card news-card"
+      onclick="openNews('images/NEWS ARTCILE/CROSS FIRE RELESE.png','CrossFire Global Popularity Expands','CrossFire continues to grow worldwide with competitive modes and esports events.')">
+        <div class="news-card-img-wrap">
+          <img class="news-card-img" src="images/NEWS ARTCILE/CROSS FIRE RELESE.png" alt="CrossFire">
+          <div class="news-badge-cat">💥 CrossFire</div>
+        </div>
+        <div class="news-card-body">
+          <div class="news-date">2025</div>
+          <h3>CrossFire Expands Worldwide</h3>
+          <p>The tactical FPS remains one of the most played shooters globally.</p>
+        </div>
       </div>
-      <div class="card news-card" data-cat="update" onclick="openNews('https://images.unsplash.com/photo-1560419015-7c427e8ae5ba?w=800&auto=format','CS2 Premier Mode Gets Major Overhaul','Valve has deployed the most significant update to Counter-Strike 2\'s Premier mode since launch, introducing regional skill groups, improved anti-cheat detection powered by machine learning, and a revamped ranking system that better reflects individual player performance across a full competitive season.')">
-        <div class="news-card-img-wrap"><img class="news-card-img" src="https://images.unsplash.com/photo-1560419015-7c427e8ae5ba?w=400&auto=format" alt="News"><div class="news-badge-cat">🔧 CS2</div></div>
-        <div class="news-card-body"><div class="news-date">APR 22, 2026</div><h3>CS2 Premier Mode Gets Major Overhaul</h3><p>Valve deploys improved anti-cheat and a revamped ranking system for Premier.</p></div>
+
+      <!-- 8 COD -->
+      <div class="card news-card"
+      onclick="openNews('images/NEWS ARTCILE/CALL OF DUTY.jpg','Call of Duty Franchise Continues Success','Call of Duty remains one of the highest-selling FPS franchises with millions of active players.')">
+        <div class="news-card-img-wrap">
+          <img class="news-card-img" src="images/NEWS ARTCILE/CALL OF DUTY.jpg" alt="COD">
+          <div class="news-badge-cat">🔫 Call of Duty</div>
+        </div>
+        <div class="news-card-body">
+          <div class="news-date">2025</div>
+          <h3>COD Still Dominates FPS Gaming</h3>
+          <p>Call of Duty continues its reign as one of gaming’s biggest franchises.</p>
+        </div>
       </div>
+
+      <!-- 9 Honor of Kings -->
+      <div class="card news-card"
+      onclick="openNews('images/NEWS ARTCILE/HONOR OF KINGS.jpg','Honor of Kings Grows in Philippines','Honor of Kings continues expanding its esports scene and community in the Philippines.')">
+        <div class="news-card-img-wrap">
+          <img class="news-card-img" src="images/NEWS ARTCILE/HONOR OF KINGS.jpg" alt="Honor of Kings">
+          <div class="news-badge-cat">👑 Honor of Kings</div>
+        </div>
+        <div class="news-card-body">
+          <div class="news-date">JANUARY 2026</div>
+          <h3>Honor of Kings Expands in PH</h3>
+          <p>The mobile MOBA continues building a stronger esports community.</p>
+        </div>
+      </div>
+
+      <!-- 10 Apex -->
+      <div class="card news-card"
+      onclick="openNews('images/NEWS ARTCILE/OBLIVION RELASE.png','Oblivion Wins ALGS 2026 Championship','North American squad Oblivion claimed the ALGS 2026 Championship after an intense nine-game finals.')">
+        <div class="news-card-img-wrap">
+          <img class="news-card-img" src="images/NEWS ARTCILE/OBLIVION RELASE.png" alt="Apex">
+          <div class="news-badge-cat">🦅 Apex Legends</div>
+        </div>
+        <div class="news-card-body">
+          <div class="news-date">2026</div>
+          <h3>Oblivion Wins ALGS 2026</h3>
+          <p>North America reclaimed the Apex Legends world championship title.</p>
+        </div>
+      </div>
+
     </div>
   </div>
-  <footer>
-    <div class="footer-bottom"><p class="footer-copy">© 2026 Monarch's Domain · All rights reserved.</p><div class="footer-links"><a href="#">Privacy</a><a href="#">Terms</a></div></div>
-  </footer>
+
 </div>
 
 <!-- ══════════════════════════════════════════════
@@ -888,7 +1026,7 @@ footer{background:var(--bg4);border-top:1px solid var(--border);padding:50px 6% 
     <div class="sec-label">⭐ Editor's Pick</div>
     <div class="sec-title">Featured Title</div>
     <div class="game-featured" style="margin-bottom:50px;">
-      <img class="game-feat-img" src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/8bda9906-4197-4b32-9ad0-19226a1fbb45/dfwr3oc-d3dd1a98-d052-4ba6-bd9c-3c73f3093b32.jpg" alt="Honkai Star Rail" onerror="this.src='https://images.unsplash.com/photo-1614294148960-9aa740632a87?w=600&auto=format'">
+      <img class="game-feat-img" src="images/HONKAI.jpg" alt="Honkai Star Rail" onerror="this.src='https://images.unsplash.com/photo-1614294148960-9aa740632a87?w=600&auto=format'">
       <div class="game-feat-body">
         <h2>Honkai: Star Rail</h2>
         <div class="game-genre">Sci-Fi Turn-Based RPG</div>
@@ -907,14 +1045,14 @@ footer{background:var(--bg4);border-top:1px solid var(--border);padding:50px 6% 
     <div class="sec-label">🎮 All Games</div>
     <div class="sec-title">Browse Titles</div>
     <div class="games-list" id="gamesList">
-      <div class="card game-card" data-genre="fps"><div class="game-card-img-wrap"><img class="game-card-img" src="https://wallpapercave.com/wp/wp8804507.jpg" alt="Valorant" onerror="this.src='https://images.unsplash.com/photo-1560419015-7c427e8ae5ba?w=300&auto=format'"></div><div class="game-card-body"><h4>Valorant</h4><span>Tactical FPS</span><div class="game-card-rating">★★★★☆ 9.2</div></div></div>
-      <div class="card game-card" data-genre="rpg"><div class="game-card-img-wrap"><img class="game-card-img" src="https://wallpapercave.com/wp/wp10929732.jpg" alt="Genshin" onerror="this.src='https://images.unsplash.com/photo-1614294148960-9aa740632a87?w=300&auto=format'"></div><div class="game-card-body"><h4>Genshin Impact</h4><span>Open World RPG</span><div class="game-card-rating">★★★★☆ 9.0</div></div></div>
-      <div class="card game-card" data-genre="moba"><div class="game-card-img-wrap"><img class="game-card-img" src="https://wallpapercave.com/wp/wp11950395.jpg" alt="LoL" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?w=300&auto=format'"></div><div class="game-card-body"><h4>League of Legends</h4><span>MOBA</span><div class="game-card-rating">★★★★★ 9.5</div></div></div>
-      <div class="card game-card" data-genre="fps"><div class="game-card-img-wrap"><img class="game-card-img" src="https://images.unsplash.com/photo-1560419015-7c427e8ae5ba?w=300&auto=format" alt="CS2"></div><div class="game-card-body"><h4>Counter-Strike 2</h4><span>Tactical FPS</span><div class="game-card-rating">★★★★★ 9.6</div></div></div>
-      <div class="card game-card" data-genre="moba"><div class="game-card-img-wrap"><img class="game-card-img" src="https://images.unsplash.com/photo-1511512578047-dfb367046420?w=300&auto=format" alt="Dota 2"></div><div class="game-card-body"><h4>Dota 2</h4><span>MOBA</span><div class="game-card-rating">★★★★☆ 9.1</div></div></div>
-      <div class="card game-card" data-genre="battle-royale"><div class="game-card-img-wrap"><img class="game-card-img" src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=300&auto=format" alt="Apex"></div><div class="game-card-body"><h4>Apex Legends</h4><span>Battle Royale</span><div class="game-card-rating">★★★★☆ 8.8</div></div></div>
-      <div class="card game-card" data-genre="battle-royale"><div class="game-card-img-wrap"><img class="game-card-img" src="https://images.unsplash.com/photo-1614294148960-9aa740632a87?w=300&auto=format" alt="Fortnite"></div><div class="game-card-body"><h4>Fortnite</h4><span>Battle Royale</span><div class="game-card-rating">★★★★☆ 8.5</div></div></div>
-      <div class="card game-card" data-genre="fps"><div class="game-card-img-wrap"><img class="game-card-img" src="https://wallpapercave.com/wp/wp13473655.jpg" alt="OW2" onerror="this.src='https://images.unsplash.com/photo-1511512578047-dfb367046420?w=300&auto=format'"></div><div class="game-card-body"><h4>Overwatch 2</h4><span>Hero Shooter</span><div class="game-card-rating">★★★★☆ 8.7</div></div></div>
+      <div class="card game-card" data-genre="fps"><div class="game-card-img-wrap"><img class="game-card-img" src="images/Valorant.jpg" alt="Valorant" onerror="this.src='images/Valorant.jpg'"></div><div class="game-card-body"><h4>Valorant</h4><span>Tactical FPS</span><div class="game-card-rating">★★★★☆ 9.2</div></div></div>
+      <div class="card game-card" data-genre="rpg"><div class="game-card-img-wrap"><img class="game-card-img" src="images/Genshin Impact app icon.jpg" alt="Genshin" onerror="this.src='images/Genshin Impact app icon.jpg'"></div><div class="game-card-body"><h4>Genshin Impact</h4><span>Open World RPG</span><div class="game-card-rating">★★★★☆ 9.0</div></div></div>
+      <div class="card game-card" data-genre="moba"><div class="game-card-img-wrap"><img class="game-card-img" src="images/league of legends card.jpg" alt="LoL" onerror="this.src='images/league of legends card.jpg'"></div><div class="game-card-body"><h4>League of Legends</h4><span>MOBA</span><div class="game-card-rating">★★★★★ 9.5</div></div></div>
+      <div class="card game-card" data-genre="fps"><div class="game-card-img-wrap"><img class="game-card-img" src="images/_ The standard, traditional t-shirt for everyday wear   _ Classic, generous, boxy fit   _ Heavyweight fabric, solid colors are 100% preshrunk cotton   _ Male model shown is 6'2_ _ 188 cm tall a.jpg" alt="CS2"></div><div class="game-card-body"><h4>Counter-Strike 2</h4><span>Tactical FPS</span><div class="game-card-rating">★★★★★ 9.6</div></div></div>
+      <div class="card game-card" data-genre="moba"><div class="game-card-img-wrap"><img class="game-card-img" src="images/dota 2 card.jpg" alt="Dota 2"></div><div class="game-card-body"><h4>Dota 2</h4><span>MOBA</span><div class="game-card-rating">★★★★☆ 9.1</div></div></div>
+      <div class="card game-card" data-genre="battle-royale"><div class="game-card-img-wrap"><img class="game-card-img" src="images/apex legends card.jpg" alt="Apex"></div><div class="game-card-body"><h4>Apex Legends</h4><span>Battle Royale</span><div class="game-card-rating">★★★★☆ 8.8</div></div></div>
+      <div class="card game-card" data-genre="battle-royale"><div class="game-card-img-wrap"><img class="game-card-img" src="images/fornite card.jpg" alt="Fortnite"></div><div class="game-card-body"><h4>Fortnite</h4><span>Battle Royale</span><div class="game-card-rating">★★★★☆ 8.5</div></div></div>
+      <div class="card game-card" data-genre="fps"><div class="game-card-img-wrap"><img class="game-card-img" src="images/OVERWATCH 2.jpg" alt="OW2" onerror="this.src='https://images.unsplash.com/photo-1511512578047-dfb367046420?w=300&auto=format'"></div><div class="game-card-body"><h4>Overwatch 2</h4><span>Hero Shooter</span><div class="game-card-rating">★★★★☆ 8.7</div></div></div>
     </div>
   </div>
   <footer><div class="footer-bottom"><p class="footer-copy">© 2026 Monarch's Domain</p><div class="footer-links"><a href="#">Privacy</a><a href="#">Terms</a></div></div></footer>
