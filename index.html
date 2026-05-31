@@ -437,6 +437,13 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9990;
 .team-wins{margin-top:10px;font-size:0.72rem;color:var(--gold);font-family:'Share Tech Mono',monospace;}
 
 /* ══ COMMUNITY PAGE ══ */
+.founder-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:14px;}
+.founder-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 10px;text-align:center;transition:0.25s;overflow:hidden;}
+.founder-card:hover{transform:translateY(-6px);border-color:var(--border-purple);box-shadow:0 0 18px rgba(168,85,247,0.12);}
+.founder-img{width:100%;height:120px;object-fit:cover;border-radius:10px;margin-bottom:10px;background:var(--bg2);}
+.founder-card h4{font-family:'Rajdhani',sans-serif;font-size:0.95rem;font-weight:700;margin-bottom:6px;}
+.founder-card p{color:var(--muted);font-size:0.78rem;margin:0}
+
 .comm-hero{
   min-height:40vh;display:flex;align-items:center;justify-content:center;text-align:center;
   padding:80px 6%;
@@ -828,6 +835,51 @@ footer{background:var(--bg4);border-top:1px solid var(--border);padding:50px 6% 
     </div>
   </div>
 
+  <!-- Home: Founder Team -->
+  <div class="section section-alt">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:30px;flex-wrap:wrap;gap:12px;">
+      <div><div class="sec-label">👑 Founders</div><div class="sec-title" style="margin-bottom:0;">Meet the Team</div></div>
+      <button class="btn-outline" onclick="goPage('teams')" style="padding:9px 20px;font-size:0.8rem;">View Full Team →</button>
+    </div>
+    <div class="founder-grid">
+      <div class="founder-card">
+        <img class="founder-img" src="images/FOUNDERS IMAGE/BORNILLA, MARK DANIEL.jpg" alt="Bornilla, Mark Daniel" onerror="this.src='https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=400&auto=format'">
+        <h4>BORNILLA, MARK DANIEL</h4>
+        <p>CEO</p>
+      </div>
+      <div class="founder-card">
+        <img class="founder-img" src="images/FOUNDERS IMAGE/ALTO, PRINCE LOWRENCE.jpg" alt="Alto, Prince Lowrence" onerror="this.src='https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&auto=format'">
+        <h4>ALTO, PRINCE LOWRENCE</h4>
+        <p>COO</p>
+      </div>
+      <div class="founder-card">
+        <img class="founder-img" src="images/FOUNDERS IMAGE/CABAEL, KINHERO.jpg" alt="Cabael, Kinhero" onerror="this.src='https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&auto=format'">
+        <h4>CABAEL, KINHERO</h4>
+        <p>CTO</p>
+      </div>
+      <div class="founder-card">
+        <img class="founder-img" src="images/FOUNDERS IMAGE/CABANA, FRANK STEVEN.jpg" alt="Cabana, Frank Steven" onerror="this.src='https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=400&auto=format'">
+        <h4>CABANA, FRANK STEVEN</h4>
+        <p>Head of Operations</p>
+      </div>
+      <div class="founder-card">
+        <img class="founder-img" src="images/FOUNDERS IMAGE/CAMACHOI, JOSHUA.jpg" alt="Camachoi, Joshua" onerror="this.src='https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&auto=format'">
+        <h4>CAMACHOI, JOSHUA</h4>
+        <p>Creative Director</p>
+      </div>
+      <div class="founder-card">
+        <img class="founder-img" src="images/FOUNDERS IMAGE/ESCUBIDO, PRITZ JONATHAN.jpg" alt="Escubido, Pritz Jonathan" onerror="this.src='https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&auto=format'">
+        <h4>ESCUBIDO, PRITZ JONATHAN</h4>
+        <p>Community Lead</p>
+      </div>
+      <div class="founder-card">
+        <img class="founder-img" src="images/FOUNDERS IMAGE/ESPINO, JUSTINE CLARK.jpg" alt="Espino, Justine Clark" onerror="this.src='https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=400&auto=format'">
+        <h4>ESPINO, JUSTINE CLARK</h4>
+        <p>Partnerships Director</p>
+      </div>
+    </div>
+  </div>
+
   <!-- Footer on home -->
   <footer>
     <div class="footer-grid">
@@ -1055,7 +1107,25 @@ footer{background:var(--bg4);border-top:1px solid var(--border);padding:50px 6% 
       <div class="card game-card" data-genre="fps"><div class="game-card-img-wrap"><img class="game-card-img" src="images/OVERWATCH 2.jpg" alt="OW2" onerror="this.src='https://images.unsplash.com/photo-1511512578047-dfb367046420?w=300&auto=format'"></div><div class="game-card-body"><h4>Overwatch 2</h4><span>Hero Shooter</span><div class="game-card-rating">★★★★☆ 8.7</div></div></div>
     </div>
   </div>
-  <footer><div class="footer-bottom"><p class="footer-copy">© 2026 Monarch's Domain</p><div class="footer-links"><a href="#">Privacy</a><a href="#">Terms</a></div></div></footer>
+  </div>
+
+  <!-- Teams: Founders Full Roster (compact) -->
+  <div class="section section-alt">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:18px;flex-wrap:wrap;gap:12px;">
+      <div><div class="sec-label">👑 Founders</div><div class="sec-title" style="margin-bottom:0;">Founders — Full Roster</div></div>
+    </div>
+    <div class="founder-grid">
+      <div class="founder-card"><img class="founder-img" src="images/FOUNDERS IMAGE/BORNILLA, MARK DANIEL.jpg" alt="BORNILLA, MARK DANIEL"><h4>BORNILLA, MARK DANIEL</h4><p>CEO</p></div>
+      <div class="founder-card"><img class="founder-img" src="images/FOUNDERS IMAGE/ALTO, PRINCE LOWRENCE.jpg" alt="ALTO, PRINCE LOWRENCE"><h4>ALTO, PRINCE LOWRENCE</h4><p>COO</p></div>
+      <div class="founder-card"><img class="founder-img" src="images/FOUNDERS IMAGE/CABAEL, KINHERO.jpg" alt="CABAEL, KINHERO"><h4>CABAEL, KINHERO</h4><p>CTO</p></div>
+      <div class="founder-card"><img class="founder-img" src="images/FOUNDERS IMAGE/CABANA, FRANK STEVEN.jpg" alt="CABANA, FRANK STEVEN"><h4>CABANA, FRANK STEVEN</h4><p>Head of Operations</p></div>
+      <div class="founder-card"><img class="founder-img" src="images/FOUNDERS IMAGE/CAMACHOI, JOSHUA.jpg" alt="CAMACHOI, JOSHUA"><h4>CAMACHOI, JOSHUA</h4><p>Creative Director</p></div>
+      <div class="founder-card"><img class="founder-img" src="images/FOUNDERS IMAGE/ESCUBIDO, PRITZ JONATHAN.jpg" alt="ESCUBIDO, PRITZ JONATHAN"><h4>ESCUBIDO, PRITZ JONATHAN</h4><p>Community Lead</p></div>
+      <div class="founder-card"><img class="founder-img" src="images/FOUNDERS IMAGE/ESPINO, JUSTINE CLARK.jpg" alt="ESPINO, JUSTINE CLARK"><h4>ESPINO, JUSTINE CLARK</h4><p>Partnerships Director</p></div>
+    </div>
+  </div>
+
+  <footer><div class="footer-bottom"><p class="footer-copy">© 2026 Monarch's Domain</p><div class="footer-links"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Support</a></div></div></footer>
 </div>
 
 <!-- ══════════════════════════════════════════════
@@ -1594,3 +1664,4 @@ loadUser();
 </script>
 </body>
 </html>
+
